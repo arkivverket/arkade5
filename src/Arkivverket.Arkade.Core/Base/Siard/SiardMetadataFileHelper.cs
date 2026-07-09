@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Util;
 
 namespace Arkivverket.Arkade.Core.Base.Siard
@@ -12,11 +13,11 @@ namespace Arkivverket.Arkade.Core.Base.Siard
             _siardArchiveReader = siardArchiveReader;
         }
 
-        public void ExtractSiardMetadataFilesToAdministrativeMetadata(Archive archive)
+        public void ExtractSiardMetadataFilesToAdministrativeMetadata(SiardArchive archive)
         {
-            var administrativeMetadataPath = archive.WorkingDirectory.AdministrativeMetadata().ToString();
+            var administrativeMetadataPath = archive.OutputDiasPackage.WorkingDirectory.AdministrativeMetadata().ToString();
             string archiveFilePath =
-                archive.WorkingDirectory.Content().DirectoryInfo().GetFiles("*.siard")[0].FullName;
+                archive.SiardFile.FullName;
             ExtractSiardMetadataFile(ArkadeConstants.SiardMetadataXmlFileName, administrativeMetadataPath,
                 archiveFilePath);
             ExtractSiardMetadataFile(ArkadeConstants.SiardMetadataXsdFileName, administrativeMetadataPath,

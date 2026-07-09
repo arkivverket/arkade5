@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Resources;
@@ -18,11 +19,11 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
 
         private readonly HashSet<string> _validatedSchemas = new();
 
-        public override void Test(Archive archive)
+        public override void Test(Noark5Archive archive)
         {
             addml structure = archive.AddmlInfo.Addml;
 
-            string basePath = archive.WorkingDirectory.Content().DirectoryInfo().FullName;
+            string basePath = archive.Content.RootDirectory.FullName;
 
             foreach (var entry in structure.dataset[0].dataObjects.dataObject)
             {

@@ -1,11 +1,13 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
-    public class DiasDirectory : DiasEntry
+    public record DiasDirectory : DiasEntry
     {
+        // Equality is effectively by Name (see DiasEntry); _entries is not relied upon for equality —
+        // directory de-duplication and merging are handled explicitly in Merge().
         private readonly HashSet<DiasEntry> _entries;
 
         public DiasDirectory(string directoryName, params DiasEntry[] diasEntries) : base(directoryName)
@@ -82,24 +84,19 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 
         public void Merge(DiasDirectory directory)
         {
-            
-            foreach (DiasEntry directoryEntry in directory._entries)
+            foreach (DiasEntry entry in directory._entries)
             {
-                if (directoryEntry is DiasDirectory diasDirectory)
+                switch (entry)
                 {
-                    var existingEntry = (DiasDirectory)_entries.FirstOrDefault(e => e.Name.Equals(directoryEntry.Name));
-                    if (existingEntry == default(DiasEntry))
-                    {
+                    case DiasFile diasFile:
+                        _entries.Add(diasFile);
+                        break;
+                    case DiasDirectory diasDirectory when GetSubDirectory(diasDirectory.Name) is { } existingDirectory:
+                        existingDirectory.Merge(diasDirectory);
+                        break;
+                    case DiasDirectory diasDirectory:
                         _entries.Add(diasDirectory);
-                    }
-                    else
-                    {
-                        existingEntry.Merge(diasDirectory);
-                    }
-                }
-                else
-                {
-                    _entries.Add(directoryEntry);
+                        break;
                 }
             }
         }

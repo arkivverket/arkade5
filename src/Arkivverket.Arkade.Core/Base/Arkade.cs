@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Languages;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Util;
@@ -16,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Base
     /// </summary>
     public class Arkade : IDisposable
     {
-        private readonly ArkadeApi _arkadeApi;
+        private readonly ArkadeCoreApi _arkadeCoreApi;
         private readonly ArkadeVersion _arkadeVersion;
         private readonly IContainer _container;
         private readonly ILifetimeScope _scope;
@@ -32,7 +33,7 @@ namespace Arkivverket.Arkade.Core.Base
             _container = builder.Build();
 
             _scope = _container.BeginLifetimeScope();
-            _arkadeApi = _container.Resolve<ArkadeApi>();
+            _arkadeCoreApi = _container.Resolve<ArkadeCoreApi>();
             _arkadeVersion = _container.Resolve<ArkadeVersion>();
             StatusEventHandler = _container.Resolve<IStatusEventHandler>();
         }
@@ -43,81 +44,55 @@ namespace Arkivverket.Arkade.Core.Base
             _container.Dispose();
         }
 
-        public TestSession CreateTestSession(ArchiveDirectory archiveDirectory)
+        public Archive LoadArchiveExtraction(FileSystemInfo archiveSource, ArchiveType archiveType, SupportedLanguage language)
         {
-            return _arkadeApi.CreateTestSession(archiveDirectory);
+            return _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType, language);
         }
 
-        public TestSession CreateTestSession(ArchiveFile archive)
+        public TestSession CreateTestSession(Archive archive)
         {
-            return _arkadeApi.CreateTestSession(archive);
+            return _arkadeCoreApi.CreateTestSession(archive);
         }
 
-        public TestSession RunTests(ArchiveFile archiveFile)
+        public void RunTests(Archive archive)
         {
-            return _arkadeApi.RunTests(archiveFile);
+            _arkadeCoreApi.RunTests(archive);
         }
 
-        public TestSession RunTests(ArchiveDirectory archiveDirectory)
+        public DirectoryInfo GenerateTestReport(Archive archive, DirectoryInfo outputDirectory, int testResultDisplayLimit, DiasPackage diasPackage)
         {
-            return _arkadeApi.RunTests(archiveDirectory);
+            return _arkadeCoreApi.GenerateTestReport(archive, outputDirectory, testResultDisplayLimit, diasPackage);
         }
 
-        public void RunTests(TestSession testSession)
+        public void CreatePackage(Archive archive, SupportedLanguage language, bool generateFileFormatInfo, string outputDirectory)
         {
-            _arkadeApi.RunTests(testSession);
+            _arkadeCoreApi.CreatePackage(archive, language, generateFileFormatInfo, outputDirectory);
         }
 
-        public void CreatePackage(TestSession testSession, string outputDirectory)
-        {
-            _arkadeApi.CreatePackage(testSession, outputDirectory);
-        }
-
-        public void SaveReport(TestSession testSession, DirectoryInfo directory, bool standalone, 
-            int testResultDisplayLimit)
-        {
-            _arkadeApi.SaveReport(testSession, directory, standalone, testResultDisplayLimit);
-        }
-
-        public IFileFormatInfo AnalyseFileFormat(KeyValuePair<string, IEnumerable<byte>> filePathAndByteContent)
-        {
-            return _arkadeApi.AnalyseFileFormat(filePathAndByteContent);
-        }
-
-        public IFileFormatInfo AnalyseFileFormat(FileInfo file)
-        {
-            return _arkadeApi.AnalyseFileFormat(file);
-        }
-        
         public IEnumerable<IFileFormatInfo> AnalyseFileFormats(string targetPath, FileFormatScanMode scanMode)
         {
-            return _arkadeApi.AnalyseFileFormats(targetPath, scanMode);
+            return _arkadeCoreApi.AnalyseFileFormats(targetPath, scanMode);
         }
         
-        public void GenerateFileFormatInfoFiles(TestSession testSession)
-        {
-            _arkadeApi.GenerateFileFormatInfoFiles(testSession);
-        }
-
         public void GenerateFileFormatInfoFiles(IEnumerable<IFileFormatInfo> fileFormatInfos, string relativePathRoot, string resultFileFullName, SupportedLanguage language)
         {
-            _arkadeApi.GenerateFileFormatInfoFiles(fileFormatInfos, relativePathRoot, resultFileFullName, language);
+            _arkadeCoreApi.GenerateFileFormatInfoFiles(fileFormatInfos, relativePathRoot, resultFileFullName, language);
         }
 
         public async Task<ArchiveFormatValidationReport> ValidateArchiveFormatAsync(
             FileSystemInfo item, ArchiveFormat format, string resultFileDirectoryPath, SupportedLanguage language)
         {
-            return await _arkadeApi.ValidateArchiveFormatAsync(item, format, resultFileDirectoryPath, language);
+            return await _arkadeCoreApi.ValidateArchiveFormatAsync(item, format, resultFileDirectoryPath, language);
         }
 
         public void GenerateMetadataExampleFile(string outputFileName)
         {
-            _arkadeApi.GenerateMetadataExampleFile(outputFileName);
+            _arkadeCoreApi.GenerateMetadataExampleFile(outputFileName);
         }
 
         public ArchiveType? DetectArchiveType(string archiveFileName)
         {
-            return _arkadeApi.DetectArchiveType(archiveFileName);
+            return _arkadeCoreApi.DetectArchiveType(archiveFileName);
         }
     }
 }

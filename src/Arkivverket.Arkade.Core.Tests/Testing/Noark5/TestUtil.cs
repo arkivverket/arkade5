@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
@@ -8,23 +9,23 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
     {
         public static string TestDataDirectory =  Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TestData");
 
-        public static Archive CreateArchiveExtraction(string testdataDirectory)
+        public static Noark5Archive CreateArchiveExtraction(string testdataDirectory)
         {
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\{testdataDirectory}";
             return new Base.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryExternalContent(workingDirectory)
-                .Build();
+                .Build<Noark5Archive>();
         }
 
-        public static Archive CreateArchiveExtractionV5_5(string testdataDirectory)
+        public static Noark5Archive CreateArchiveExtractionV5_5(string testdataDirectory)
         {
             string workingDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\{testdataDirectory}";
             return new Base.ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryExternalContent(workingDirectory)
                 .WithArchiveDetails("5.0")
-                .Build();
+                .Build<Noark5Archive>();
         }
 
         public static string ReadFromFileInTestDataDir(string fileName)

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -16,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly Dictionary<ArchivePart, List<(string, long)>> _missingFilesPerArchivePart = new();
         private ArchivePart _currentArchivePart = new(); 
 
-        public N5_32_ControlDocumentFilesExists(Archive archive)
+        public N5_32_ControlDocumentFilesExists(Noark5Archive archive)
         {
             _documentFiles = archive.DocumentFiles;
         }

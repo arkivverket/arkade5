@@ -1,19 +1,19 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <AssemblyName>Arkivverket.Arkade.Core</AssemblyName>
     <RootNamespace>Arkivverket.Arkade.Core</RootNamespace>
     <OutputType>Library</OutputType>
-    <Authors>Arkitektum AS for Arkivverket</Authors>
+    <Authors>Arkitektum AS for Nasjonalarkivet</Authors>
     <PackageLicenseExpression>GNU GPL</PackageLicenseExpression>
     <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
     <PackageIcon>Arkade5_2.0.ico</PackageIcon>
-    <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
+    <RepositoryUrl>https://github.com/nasjonalarkivet/arkade5</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>https://github.com/arkivverket/arkade5/tags</PackageTags>
-    <PackageReleaseNotes>https://github.com/arkivverket/arkade5/releases</PackageReleaseNotes>
+    <PackageTags>https://github.com/nasjonalarkivet/arkade5/tags</PackageTags>
+    <PackageReleaseNotes>https://github.com/nasjonalarkivet/arkade5/releases</PackageReleaseNotes>
     <PackageId>Arkivverket.Arkade.Core</PackageId>
   </PropertyGroup>
 
@@ -73,21 +73,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="ExternalModels\Noark5\v3_1\arkivstruktur.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v3_1\endringslogg.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v3_1\loependeJournal.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v3_1\metadatakatalog.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v3_1\offentligJournal.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v4_0\arkivstruktur.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v4_0\endringslogg.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v4_0\loependeJournal.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v4_0\metadatakatalog.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v4_0\offentligJournal.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v5_0\arkivstruktur.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v5_0\endringslogg.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v5_0\loependeJournal.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v5_0\metadatakatalog.xsd" />
-    <EmbeddedResource Include="ExternalModels\Noark5\v5_0\offentligJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\addml.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\addml82.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\arkivstruktur.xsd" />
@@ -100,13 +85,28 @@
     <EmbeddedResource Include="ExternalModels\xsd\loependeJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\metadata.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\metadatakatalog.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v3_1\arkivstruktur.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v3_1\endringslogg.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v3_1\loependeJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v3_1\metadatakatalog.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v3_1\offentligJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v4_0\arkivstruktur.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v4_0\endringslogg.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v4_0\loependeJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v4_0\metadatakatalog.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v4_0\offentligJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v5_0\arkivstruktur.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v5_0\endringslogg.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v5_0\loependeJournal.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v5_0\metadatakatalog.xsd" />
+    <EmbeddedResource Include="ExternalModels\xsd\Noark5\v5_0\offentligJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\offentligJournal.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\submissionDescription.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\testSessionLog.xsd" />
     <EmbeddedResource Include="ExternalModels\xsd\xlink.xsd" />
     <EmbeddedResource Include="ExternalModels\xsl\noarkih-to-addml.xsl" />
     <EmbeddedResource Include="Resources\arkade.css" />
-    <EmbeddedResource Include="Resources\arkivverket.gif" />
+    <EmbeddedResource Include="Resources\Nasjonalarkivet-logo.png" />
     <EmbeddedResource Include="Resources\bootstrap.min.css" />
     <EmbeddedResource Include="Resources\ArchiveFileFormats.json" />
     <EmbeddedResource Include="Resources\FreeSans.ttf" />
@@ -114,14 +114,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="9.0.0" />
+    <PackageReference Include="Autofac" Version="9.3.0" />
     <PackageReference Include="Codeuctivity.PdfAValidator" Version="3.0.208" />
     <PackageReference Include="CsvHelper" Version="33.1.0" />
-    <PackageReference Include="itext.bouncy-castle-adapter" Version="9.5.0" />
-    <PackageReference Include="itext.pdfhtml" Version="6.3.1" />
+    <PackageReference Include="itext.bouncy-castle-adapter" Version="9.6.0" />
+    <PackageReference Include="itext.pdfhtml" Version="6.3.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="RestSharp" Version="113.1.0" />
-    <PackageReference Include="Serilog" Version="4.3.0" />
+    <PackageReference Include="RestSharp" Version="114.0.0" />
+    <PackageReference Include="Serilog" Version="4.3.1" />
     <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
@@ -293,19 +293,19 @@
     <None Update="ThirdPartySoftware\Siegfried\LICENSE.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-1_win64.exe">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-4_win64.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-1_linux64">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-4_linux64">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-1_mac64">
+    <None Update="ThirdPartySoftware\Siegfried\siegfried_1-11-4_mac64">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
   <ItemGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <None Update="ThirdPartySoftware\DBPTK\dbptk-app-2.11.0.jar">
+    <None Update="ThirdPartySoftware\DBPTK\dbptk-app-4.4.0.jar">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

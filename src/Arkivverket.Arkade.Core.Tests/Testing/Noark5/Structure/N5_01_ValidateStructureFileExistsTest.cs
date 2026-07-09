@@ -1,9 +1,9 @@
 ﻿using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing.Noark5.Structure;
 using System;
 using FluentAssertions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
 {
@@ -26,7 +26,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent($"{workingDirectory}\\arkiv")
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateStructureFileExists = new N5_01_ValidateStructureFileExists();
             validateStructureFileExists.Test(archive);
@@ -45,7 +45,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5.Structure
                 .WithArchiveType(ArchiveType.Noark5)
                 .WithWorkingDirectoryRoot(workingDirectory)
                 .WithWorkingDirectoryExternalContent($"{workingDirectory}\\arkiv")
-                .Build();
+                .Build<Noark5Archive>();
 
             var validateStructureFileExists = new N5_01_ValidateStructureFileExists();
             validateStructureFileExists.Test(archive);

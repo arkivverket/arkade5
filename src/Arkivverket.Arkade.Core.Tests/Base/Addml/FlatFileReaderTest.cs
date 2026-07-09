@@ -170,9 +170,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml
         {
 
             var testDataDirectory = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\noark3");
-            var workingDirectory = new WorkingDirectory(testDataDirectory, testDataDirectory);
-            AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Content()
-                .WithFile("noark_3_arkivuttrekk_med_prosesser.xml").FullName,
+            var workingDirectory = new DirectoryArchiveContent(testDataDirectory);
+            AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.GetFile("noark_3_arkivuttrekk_med_prosesser.xml").FullName,
                 ResourceUtil.GetResourceAsStream(ArkadeConstants.Addml82XsdResource));
 
             AddmlDefinition addmlDefinition = new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler()).GetAddmlDefinition();

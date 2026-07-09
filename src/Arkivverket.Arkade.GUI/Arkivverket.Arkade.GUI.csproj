@@ -2,19 +2,19 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net10.0-windows</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Arkade5_2.0.ico</ApplicationIcon>
-    <Authors>Arkitektum AS for Arkivverket</Authors>
+    <Authors>Arkitektum AS for Nasjonalarkivet</Authors>
     <PackageLicenseExpression>GNU GPL</PackageLicenseExpression>
     <PackageProjectUrl>https://arkade.arkivverket.no</PackageProjectUrl>
     <PackageIcon>Arkade5_2.0.ico</PackageIcon>
-    <RepositoryUrl>https://github.com/arkivverket/arkade5</RepositoryUrl>
+    <RepositoryUrl>https://github.com/nasjonalarkivet/arkade5</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
-    <PackageTags>https://github.com/arkivverket/arkade5/tags</PackageTags>
-    <PackageReleaseNotes>https://github.com/arkivverket/arkade5/releases</PackageReleaseNotes>
+    <PackageTags>https://github.com/nasjonalarkivet/arkade5/tags</PackageTags>
+    <PackageReleaseNotes>https://github.com/nasjonalarkivet/arkade5/releases</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
@@ -32,7 +32,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MaterialDesignThemes" Version="5.3.0" />
+    <PackageReference Include="MaterialDesignThemes" Version="5.3.2" />
     <PackageReference Include="Prism.Core" Version="9.0.537" />
     <PackageReference Include="Prism.Unity" Version="9.0.537" />
     <PackageReference Include="Prism.Wpf" Version="9.0.537" />

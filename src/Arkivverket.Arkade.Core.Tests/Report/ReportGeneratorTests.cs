@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -17,7 +17,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
     {
         private readonly string _workingDirectory = AppDomain.CurrentDomain.BaseDirectory + "\\TestData\\Report\\FilesToBeListed";
 
-        private TestSession CreateTestSessionWithTwoTestRuns()
+        private Archive CreateArchiveWithTwoTestRuns()
         {
             TestRun testRun1 = new TestRunBuilder()
                 .WithTestId(new TestId(TestId.TestKind.Unidentified, 1))
@@ -42,25 +42,23 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 
             Archive archive = new ArchiveBuilder()
                 .WithWorkingDirectoryRoot(_workingDirectory)
-                .WithArchiveDetails("5.0")
                 .WithArchiveType(ArchiveType.Noark5)
-                .WithUuid(Uuid.Random())
                 .Build();
             
-            TestSession testSession = new TestSessionBuilder()
+            new TestSessionBuilder()
                 .WithArchive(archive)
                 .WithLogEntry("log entry")
                 .WithTestRuns(testRuns)
                 .WithTestSummary(new TestSummary(0, 0, 0, 0, 0))
                 .Build();
 
-            return testSession;
+            return archive;
         }
 
-        private static string GenerateReport(TestSession testSession, TestReportFormat reportType)
+        private static string GenerateReport(Archive archive, TestReportFormat reportType)
         {
             var memoryStream = new MemoryStream();
-            TestReport testReport = TestReportFactory.Create(testSession);
+            TestReport testReport = TestReportFactory.Create(archive, diasPackage: null);
             IReportGenerator reportGenerator = SelectReportGenerator(reportType);
             reportGenerator.Generate(testReport, memoryStream);
             return Encoding.UTF8.GetString(memoryStream.ToArray());
@@ -82,9 +80,9 @@ namespace Arkivverket.Arkade.Core.Tests.Report
         [Fact]
         public void ShouldGenerateHtmlStringWithExpectedInformation()
         {
-            TestSession testSession = CreateTestSessionWithTwoTestRuns();
+            Archive archive = CreateArchiveWithTwoTestRuns();
 
-            string html = GenerateReport(testSession, TestReportFormat.html);
+            string html = GenerateReport(archive, TestReportFormat.html);
 
             html.Contains(Resources.Report.LabelArchiveCreators).Should().BeTrue();
             html.Contains(Resources.Report.LabelArchivePeriod).Should().BeTrue();
@@ -103,9 +101,9 @@ namespace Arkivverket.Arkade.Core.Tests.Report
         [Fact]
         public void ShouldGenerateXmlStringWithExpectedInformation()
         {
-            TestSession testSession = CreateTestSessionWithTwoTestRuns();
+            Archive archive = CreateArchiveWithTwoTestRuns();
 
-            string xml = GenerateReport(testSession, TestReportFormat.xml);
+            string xml = GenerateReport(archive, TestReportFormat.xml);
 
             xml.Contains("<Summary>").Should().BeTrue();
             xml.Contains("<ArchiveCreators>").Should().BeTrue();
@@ -113,7 +111,7 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             xml.Contains("<SystemName>").Should().BeTrue();
             xml.Contains("<SystemType>").Should().BeTrue();
             xml.Contains("<ArchiveType>").Should().BeTrue();
-            xml.Contains("<DateOfTesting>").Should().BeTrue();
+            xml.Contains("<TimeOfTesting>").Should().BeTrue();
             xml.Contains("<NumberOfTestsRun>").Should().BeTrue();
             xml.Contains("<NumberOfProcessedFiles>").Should().BeTrue();
             xml.Contains("<NumberOfProcessedRecords>").Should().BeTrue();
@@ -135,9 +133,9 @@ namespace Arkivverket.Arkade.Core.Tests.Report
         [Fact]
         public void ShouldGenerateJsonStringWithExpectedInformation()
         {
-            TestSession testSession = CreateTestSessionWithTwoTestRuns();
+            Archive archive = CreateArchiveWithTwoTestRuns();
 
-            string json = GenerateReport(testSession, TestReportFormat.json);
+            string json = GenerateReport(archive, TestReportFormat.json);
 
             json.Contains("\"Summary\"").Should().BeTrue();
             json.Contains("\"ArchiveCreators\"").Should().BeTrue();
@@ -145,8 +143,8 @@ namespace Arkivverket.Arkade.Core.Tests.Report
             json.Contains("\"SystemName\"").Should().BeTrue();
             json.Contains("\"SystemType\"").Should().BeTrue();
             json.Contains("\"ArchiveType\"").Should().BeTrue();
-            json.Contains("\"DateOfTesting\"").Should().BeTrue();
-            json.Contains("\"NumberOfTestsRun\"").Should().BeTrue(); 
+            json.Contains("\"TimeOfTesting\"").Should().BeTrue();
+            json.Contains("\"NumberOfTestsRun\"").Should().BeTrue();
             json.Contains("\"NumberOfProcessedFiles\"").Should().BeTrue();
             json.Contains("\"NumberOfProcessedRecords\"").Should().BeTrue();
             json.Contains("\"NumberOfErrors\"").Should().BeTrue();
@@ -163,9 +161,9 @@ namespace Arkivverket.Arkade.Core.Tests.Report
         [Fact]
         public void ShouldGeneratePdfReport()
         {
-            TestSession testSession = CreateTestSessionWithTwoTestRuns();
+            Archive archive = CreateArchiveWithTwoTestRuns();
 
-            string pdf = GenerateReport(testSession, TestReportFormat.pdf);
+            string pdf = GenerateReport(archive, TestReportFormat.pdf);
 
             pdf.Contains("PDF").Should().BeTrue();
         }

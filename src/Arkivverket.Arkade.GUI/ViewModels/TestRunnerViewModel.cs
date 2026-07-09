@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Arkivverket.Arkade.GUI.Models;
 using Prism.Commands;
@@ -16,6 +17,7 @@ using Prism.Navigation.Regions;
 using Serilog;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Languages;
+using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.GUI.Util;
 using Arkivverket.Arkade.GUI.Views;
 using Arkivverket.Arkade.Core.Util;
@@ -32,7 +34,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private ObservableCollection<OperationMessage> _operationMessages = new ObservableCollection<OperationMessage>();
         private ObservableCollection<SelectableTest> _selectableTests = new ObservableCollection<SelectableTest>();
 
-        private readonly ArkadeApi _arkadeApi;
         private readonly IRegionManager _regionManager;
 
         // ReSharper disable once PrivateFieldCanBeConvertedToLocalVariable
@@ -44,10 +45,10 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         public DelegateCommand ShowReportCommand { get; set; }
         public DelegateCommand NewProgramSessionCommand { get; set; }
 
-        private string _archiveFileName;
+        private Archive _archive;
         private ArchiveType _archiveType;
-        private TestSession _testSession;
         private bool _testRunHasBeenExecuted;
+        private bool _isLoading;
         private bool _isRunningTests;
         private bool _testRunCompletedSuccessfully;
         private bool _testRunHasFailed;
@@ -56,6 +57,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private bool _isProcessingRecord;
         private ArchiveInformationStatus _archiveInformationStatus = new ArchiveInformationStatus();
         private Visibility _archiveCurrentProcessing = Visibility.Hidden;
+        private Visibility _informationPackageUuidVisibility = Visibility.Collapsed;
         private Visibility _numberOfProcessedRecordsVisibility = Visibility.Collapsed;
         private Visibility _processingFileVisibility = Visibility.Collapsed;
         private Visibility _addmlDataObjectStatusVisibilty = Visibility.Collapsed;
@@ -67,6 +69,13 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         private int _numberOfTestsFinished = 0;
         private string _currentlyRunningTest;
         private string _testProgressPercentage;
+        private readonly ArkadeCoreApi _arkadeCoreApi;
+
+        public Visibility InformationPackageUuidVisibility
+        {
+            get => _informationPackageUuidVisibility;
+            set => SetProperty(ref _informationPackageUuidVisibility, value);
+        }
 
         public Visibility NumberOfProcessedRecordsVisibility
         {
@@ -175,9 +184,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _archiveCurrentProcessing, value);
         }
 
-        public TestRunnerViewModel(ArkadeApi arkadeApi, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
+        public TestRunnerViewModel(ArkadeCoreApi arkadeCoreApi, IRegionManager regionManager,  IStatusEventHandler statusEventHandler)
         {
-            _arkadeApi = arkadeApi;
+            _arkadeCoreApi = arkadeCoreApi;
             _regionManager = regionManager;
             _statusEventHandler = statusEventHandler;
             _statusEventHandler.OperationMessageEvent += OnOperationMessageEvent;
@@ -188,7 +197,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _statusEventHandler.FileProcessFinishedEvent += OnFileProcessFinishedEvent;
             _statusEventHandler.RecordProcessingStartedEvent += OnRecordProcessingStartedEvent;
             _statusEventHandler.RecordProcessingFinishedEvent += OnRecordProcessingFinishedEvent;
-            _statusEventHandler.NewArchiveProcessEvent += OnNewArchiveInformationEvent;
             _statusEventHandler.SiardValidationFinishedEvent += OnSiardValidationFinished;
             _statusEventHandler.ReadXmlEndElementEvent += OnReadXmlEndElementEvent;
 
@@ -225,6 +233,8 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
             _log.Information("User action: Leave test session and return to load archive window");
 
+            _archive?.ProcessingDirectory.Delete(true);
+            
             _regionManager.RequestNavigate("MainContentRegion", "LoadArchiveExtraction");
         }
 
@@ -234,24 +244,23 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             _log.Information("User action: Navigate to create package window");
 
             var navigationParameters = new NavigationParameters();
-            navigationParameters.Add("TestSession", _testSession);
-            navigationParameters.Add("archiveFileName", _archiveFileName);
+            navigationParameters.Add("archive", _archive);
             _regionManager.RequestNavigate("MainContentRegion", "CreatePackage", navigationParameters);
         }
 
         private bool CanStartTestRun()
         {
-            return _testSession != null && _testSession.IsTestableArchive(out _) && !_testRunHasBeenExecuted;
+           return !_isLoading && _archive != null && _archive.IsTestable(out _) && !_testRunHasBeenExecuted;
         }
 
         private bool CanCreatePackage()
         {
-            return !_isRunningTests;
+            return !_isLoading && !_isRunningTests && _archive != null;
         }
 
         private bool IsFinishedRunningTests()
         {
-            return !_isRunningTests;
+            return !_isLoading && !_isRunningTests;
         }
 
         private bool CanContinueOperationOnTestRun()
@@ -261,23 +270,42 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         public void OnNavigatedTo(NavigationContext context)
         {
+            var archiveSource = (FileSystemInfo)context.Parameters["archiveSource"];
+            var archiveType = (ArchiveType)context.Parameters["archiveType"];
+
+            // Until the archive has finished loading, _archive is still null. Block every action that would
+            // hand it onwards (start tests, navigate to Create Package, leave the session) so the user can't
+            // enter the create-package flow mid-load and crash on a null archive — and block Settings, whose
+            // restart-on-change would kill the in-progress load.
+            SetLoadingState(true);
+
+            // Loading/extraction happens here, off the UI thread so a
+            // large .tar extraction doesn't freeze the window. ArchiveFactory raises the "Reading archive"
+            // OperationMessages we already subscribe to, so progress shows up in the message list below. The
+            // continuation runs back on the UI thread to touch bound state safely.
+            Task.Run(() => _arkadeCoreApi.LoadArchiveExtraction(archiveSource, archiveType, LanguageSettingHelper.GetUILanguage()))
+                .ContinueWith(OnArchiveLoaded, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private void OnArchiveLoaded(Task<Archive> loadTask)
+        {
             try
             {
-                _archiveType = (ArchiveType) context.Parameters["archiveType"];
-                _archiveFileName = (string) context.Parameters["archiveFileName"];
+                if (loadTask.IsFaulted)
+                    throw loadTask.Exception?.GetBaseException() ?? new Exception("No archive provided");
 
-                _testSession = Directory.Exists(_archiveFileName)
-                    ? _arkadeApi.CreateTestSession(ArchiveDirectory.Read(_archiveFileName, _archiveType))
-                    : _arkadeApi.CreateTestSession(ArchiveFile.Read(_archiveFileName, _archiveType));
+                _archive = loadTask.Result;
 
-                if (!_testSession.IsTestableArchive(out string disqualifyingCause))
+                UpdateArchiveInformationDisplay();
+                    
+                if (!_archive.IsTestable(out string disqualifyingCause))
                     LogNotTestableArchiveOperationMessage(disqualifyingCause);
 
-                if (_testSession.Archive.ArchiveType == ArchiveType.Noark5)
+                if (_archive is Noark5Archive)
                 {
                     SupportedLanguage uiLanguage = LanguageSettingHelper.GetUILanguage();
 
-                    foreach (TestId testId in _testSession.AvailableTests)
+                    foreach (TestId testId in Noark5TestProvider.GetAllTestIds())
                     {
                         _selectableTests.Add(new SelectableTest
                         {
@@ -289,9 +317,6 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
                     CanSelectTests = true;
                 }
-
-
-                StartTestingCommand.RaiseCanExecuteChanged(); // testSession has been updated, reevaluate command
             }
             catch (SiardArchiveReaderException siardArchiveReaderException)
             {
@@ -306,6 +331,23 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 if (e is ArkadeException)
                     LogNotTestableArchiveOperationMessage(TestRunnerGUI.ValidSpecificationFileNotFound);
             }
+            finally
+            {
+                // Loading is done (success or failure) — re-enable the gated commands. Their own guards
+                // (_archive != null, testability) decide which actually become available.
+                SetLoadingState(false);
+            }
+        }
+
+        private void SetLoadingState(bool isLoading)
+        {
+            _isLoading = isLoading;
+            ArkadeProcessingState.LoadingIsStarted = isLoading;
+
+            StartTestingCommand.RaiseCanExecuteChanged();
+            NavigateToCreatePackageCommand.RaiseCanExecuteChanged();
+            NewProgramSessionCommand.RaiseCanExecuteChanged();
+            MainWindowViewModel.ShowSettingsCommand.RaiseCanExecuteChanged();
         }
 
         private void LogNotTestableArchiveOperationMessage(string disqualifyingCause)
@@ -401,21 +443,40 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             NumberOfProcessedRecords = NumberOfProcessedRecords + 1;
         }
 
-        private void OnNewArchiveInformationEvent(object sender, ArchiveInformationEventArgs eventArgs)
+        private void UpdateArchiveInformationDisplay()
         {
-            ArchiveInformationStatus.Update(eventArgs);
+            FileSystemInfo archiveSource = _archive switch
+            {
+                { SourceIsTarFile: true } => _archive.InputDiasPackage.TarFile,
+                SiardArchive siardArchive => siardArchive.SiardFile,
+                { Content: DirectoryArchiveContent directoryContent } => directoryContent.RootDirectory,
+                _ => throw new InvalidOperationException(
+                    $"Cannot determine archive source for {_archive.GetType().Name}")
+            };
+
+            string archiveFileName = archiveSource.FullName;
+            var archiveType = _archive.ArchiveType.ToString();
+            // Three states: no package (row hidden), identified package (UUID), package whose METS
+            // lacks a valid identity (explicit unknown-marker — hiding the row would disguise the
+            // package as a loose archive-extraction input)
+            string informationPackageUuid = _archive.InputDiasPackage is null
+                ? null
+                : _archive.InputDiasPackage.Id?.ToString()
+                  ?? TestRunnerGUI.ValueUnknownPackageIdentity;
+
+            InformationPackageUuidVisibility = informationPackageUuid is null ? Visibility.Collapsed : Visibility.Visible;
+
+            ArchiveInformationStatus.Update(archiveFileName, archiveType, informationPackageUuid);
             ArchiveCurrentProcessing = Visibility.Visible;
 
-            Enum.TryParse(eventArgs.ArchiveType, out ArchiveType archiveType);
-
-            switch (archiveType)
+            switch (_archive.ArchiveType)
             {
                 case ArchiveType.Noark5:
                     AddmlDataObjectStatusVisibility = Visibility.Visible;
                     ProcessingFileVisibility = Visibility.Visible;
                     NumberOfProcessedRecordsVisibility = Visibility.Visible;
                     break;
-                case ArchiveType.Noark3 or ArchiveType.Fagsystem:
+                case ArchiveType.Noark3 or ArchiveType.SpecializedSystem:
                     AddmlFlatFileStatusVisibility = Visibility.Visible;
                     ProcessingFileVisibility = Visibility.Visible;
                     NumberOfProcessedRecordsVisibility = Visibility.Visible;
@@ -427,15 +488,17 @@ namespace Arkivverket.Arkade.GUI.ViewModels
         {
             try
             {
+                _archive.TestSession = _arkadeCoreApi.CreateTestSession(_archive);
+                
                 NotifyStartRunningTests();
 
-                _testSession.TestsToRun = GetSelectedTests();
+                _archive.TestSession.TestsToRun = GetSelectedTests();
                 
-                _testSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
+                _archive.TestSession.OutputLanguage = LanguageSettingHelper.GetOutputLanguage();
 
-                _arkadeApi.RunTests(_testSession);
+                _arkadeCoreApi.RunTests(_archive);
 
-                _testSession.AddLogEntry("Test run completed.");
+                _archive.TestSession.AddLogEntry("Test run completed.");
 
                 if (_testRunHasFailed)
                 {
@@ -443,22 +506,20 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     return;
                 }
 
-                SaveTestReports(_testSession.Archive.GetTestReportDirectory());
-
                 _testRunCompletedSuccessfully = true;
                 _statusEventHandler.RaiseEventOperationMessage(TestRunnerGUI.EventIdFinishedOperation, null, OperationMessageStatus.Ok);
                 NotifyFinishedRunningTests();
             }
             catch (ArkadeException e)
             {
-                _testSession?.AddLogEntry("Test run failed: " + e.Message);
+                _archive.TestSession?.AddLogEntry("Test run failed: " + e.Message);
                 _log.Error(e.Message, e);
                 _statusEventHandler.RaiseEventTestProgressUpdated(string.Empty, true, e.Message);
                 NotifyFinishedRunningTests();
             }
             catch (Exception e)
             {
-                _testSession?.AddLogEntry("Test run failed: " + e.Message);
+                _archive.TestSession?.AddLogEntry("Test run failed: " + e.Message);
                 _log.Error(e.Message, e);
 
                 var operationMessageBuilder = new StringBuilder();
@@ -547,18 +608,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
 
         private void ShowTestReportDialog()
         {
-            new TestReportDialog(_testSession.Archive.GetTestReportDirectory(), _testSession.Archive.Uuid).ShowDialog();
+            new TestReportDialog(_archive).ShowDialog();
         }
-
-        private void SaveTestReports(DirectoryInfo testReportDirectory)
-        {
-            string eventId = TestRunnerGUI.EventIdCreatingReport;
-            _statusEventHandler.RaiseEventOperationMessage(eventId, null, OperationMessageStatus.Started);
-
-            _arkadeApi.SaveReport(_testSession, testReportDirectory, false, Settings.Default.TestResultDisplayLimit);
-
-            _statusEventHandler.RaiseEventOperationMessage(eventId, TestRunnerGUI.TestReportIsSavedMessage, OperationMessageStatus.Ok);
-        }
-
     }
 }

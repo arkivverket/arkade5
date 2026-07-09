@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using FluentAssertions;
@@ -40,7 +41,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("dokumentobjekt", new XmlElementHelper()
                                                 .Add("referanseDokumentfil", "dokumenter/5000001.pdf")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "ArchiveReferencedFiles")
             );
 
@@ -87,7 +88,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("dokumentobjekt", new XmlElementHelper()
                                                 .Add("referanseDokumentfil", "dokumenter/5000002.pdf")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "ArchiveReferencedFiles")
             );
 
@@ -124,7 +125,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                             .Add("dokumentobjekt", new XmlElementHelper()
                                                 .Add("referanseDokumentfil", "dokumenter/5000002.pdf")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "ArchiveReferencedFiles")
             );
 
@@ -166,7 +167,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                                            .Add("dokumentobjekt", new XmlElementHelper()
                                                .Add("referanseDokumentfil", "dokumenter/5000001.pdf")))))))));
 
-            Archive testArchive = CreateTestArchive(
+            var testArchive = CreateTestArchive(
                 Path.Combine("TestData", "Noark5", "DocumentfilesControl", "ArchiveReferencedFiles")
             );
 
@@ -175,9 +176,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             testRun.TestResults.GetNumberOfResults().Should().Be(0);
         }
 
-        private static Archive CreateTestArchive(string pathToArchive)
+        private static Noark5Archive CreateTestArchive(string pathToArchive)
         {
-            Archive archive = TestUtil.CreateArchiveExtraction(pathToArchive);
+            var archive = TestUtil.CreateArchiveExtraction(pathToArchive);
 
             archive.DocumentFiles.Register(false);
 

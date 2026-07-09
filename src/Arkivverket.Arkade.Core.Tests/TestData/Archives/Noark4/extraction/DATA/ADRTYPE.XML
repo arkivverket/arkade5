@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE ADRTYPE.TAB SYSTEM "ADRTYPE.DTD">
+<ADRTYPE.TAB VERSJON="1.0">
+   <ADRTYPE>
+      <AT.KODE>V</AT.KODE>
+      <AT.BETEGN>Adresse til virksomhet</AT.BETEGN>
+   </ADRTYPE>
+   <ADRTYPE>
+      <AT.KODE>I</AT.KODE>
+      <AT.BETEGN>Adresse til intern administrativ enhet</AT.BETEGN>
+   </ADRTYPE>
+   <ADRTYPE>
+      <AT.KODE>P</AT.KODE>
+      <AT.BETEGN>Privatadresse</AT.BETEGN>
+   </ADRTYPE>
+   <ADRTYPE>
+      <AT.KODE>A</AT.KODE>
+      <AT.BETEGN>Persons arbeidsadresse</AT.BETEGN>
+   </ADRTYPE>
+   <ADRTYPE>
+      <AT.KODE>F</AT.KODE>
+      <AT.BETEGN>Persons ferieadresse</AT.BETEGN>
+   </ADRTYPE>
+   <ADRTYPE>
+      <AT.KODE>G</AT.KODE>
+      <AT.BETEGN>Adressegruppe</AT.BETEGN>
+   </ADRTYPE>
+</ADRTYPE.TAB>

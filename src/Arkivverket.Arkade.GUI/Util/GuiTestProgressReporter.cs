@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.GUI.Languages;
 using Serilog;

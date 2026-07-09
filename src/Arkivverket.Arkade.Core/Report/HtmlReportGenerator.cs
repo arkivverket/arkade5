@@ -5,6 +5,7 @@ using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Util;
 using System.IO;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base.Archives;
 
 namespace Arkivverket.Arkade.Core.Report
 {
@@ -24,7 +25,7 @@ namespace Arkivverket.Arkade.Core.Report
             var streamWriter = new StreamWriter(stream);
             streamWriter.WriteLine(@"<!DOCTYPE html>");
             streamWriter.WriteLine(@"<html lang=""no"">");
-            Head(testReport.Summary.Uuid, streamWriter);
+            Head(ComposeDocumentTitle(testReport.Summary), streamWriter);
             Body(testReport, streamWriter);
             streamWriter.WriteLine(@"</html>");
             streamWriter.Flush();
@@ -36,7 +37,7 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(@"");
             stream.WriteLine(@"<div class=""container"">");
             stream.WriteLine(@"");
-            ArkivverketImage(stream);
+            NasjonalarkivetImage(stream);
             stream.WriteLine(@"    <h1>" + Resources.Report.HeadingTestReport + "</h1>");
             Summary(testReport, stream);
 
@@ -63,14 +64,14 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine("</p>");
         }
 
-        private static void ArkivverketImage(StreamWriter stream)
+        private static void NasjonalarkivetImage(StreamWriter stream)
         {
-            byte[] imageBytes = ResourceUtil.ReadResourceBytes("Arkivverket.Arkade.Core.Resources.arkivverket.gif");
+            byte[] imageBytes = ResourceUtil.ReadResourceBytes("Arkivverket.Arkade.Core.Resources.Nasjonalarkivet-logo.png");
             string imageBase64 = Convert.ToBase64String(imageBytes, Base64FormattingOptions.None);
 
-            stream.WriteLine(@"<img src=""data:image/gif;base64,");
+            stream.WriteLine(@"<img src=""data:image/png;base64,");
             stream.WriteLine(imageBase64);
-            stream.WriteLine(@""" class=""img-responsive"" alt=""Arkivverket"" width=""481"" height=""82"" />");
+            stream.WriteLine(@""" class=""img-responsive"" alt=""Nasjonalarkivet"" width=""381"" height=""128"" />");
         }
 
         private static void Test(ExecutedTest test, StreamWriter stream)
@@ -213,15 +214,19 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(@"        <table class=""table"">");
             stream.WriteLine(@"            <tbody>");
 
-            stream.WriteLine(@"            <tr>");
-            stream.WriteLine(@"                <td>");
-            stream.WriteLine(Resources.Report.LabelUuid);
-            stream.WriteLine("                </td>");
-            stream.WriteLine(@"                <td>");
-            stream.WriteLine(testReport.Summary.Uuid);
-            stream.WriteLine("                </td>");
-            stream.WriteLine(@"            </tr>");
-            
+            if (testReport.Summary.InformationPackageUuid != null || testReport.Summary.PackageIdentityIsUnknown)
+            {
+                stream.WriteLine(@"            <tr>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(Resources.Report.LabelInformationPackageUuid);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"                <td>");
+                stream.WriteLine(testReport.Summary.InformationPackageUuid
+                                 ?? Resources.Report.ValueUnknownPackageIdentity);
+                stream.WriteLine("                </td>");
+                stream.WriteLine(@"            </tr>");
+            }
+
             stream.WriteLine(@"            <tr>");
             stream.WriteLine(@"                <td>");
             stream.WriteLine(Resources.Report.LabelArchiveCreators);
@@ -272,7 +277,7 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(Resources.Report.LabelDateOfTesting);
             stream.WriteLine("                </td>");
             stream.WriteLine(@"                <td>");
-            stream.WriteLine(testReport.Summary.DateOfTesting);
+            stream.WriteLine(testReport.Summary.TimeOfTesting);
             stream.WriteLine("                </td>");
             stream.WriteLine(@"            </tr>");
 
@@ -368,6 +373,15 @@ namespace Arkivverket.Arkade.Core.Report
             stream.WriteLine(@"        </table>");
             stream.WriteLine(@"    </div>");
             stream.WriteLine(@"    </div>");
+        }
+
+        private static string ComposeDocumentTitle(TestReportSummary summary)
+        {
+            // The package UUID identifies the report when present; for input without a DIAS
+            // package (directory / .siard) there is no UUID, so fall back to the time of testing.
+            string identifier = summary.InformationPackageUuid is null ? summary.TimeOfTesting : summary.InformationPackageUuid;
+
+            return $"{Resources.Report.HeadingTestReport} — {identifier}";
         }
 
         private static void Head(string title, StreamWriter stream)

@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             // 734b493f-c64e-4fc5-a988-56be11e2ee10
             // 214e27a2-5e7f-484b-b2c2-dea4e50524a3
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
+            var testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_62_ChangeLogArchiveReferenceControl(testArchive));
 
             testRun.TestResults.GetNumberOfResults().Should().Be(0);
@@ -49,7 +49,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
             // 734b493f-c64e-4fc5-a988-56be11e2ee10
             // 214e27a2-5e7f-484b-b2c2-dea4e50524a3
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
+            var testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_62_ChangeLogArchiveReferenceControl(testArchive));
 
             testRun.TestResults.TestsResults.First().Message.Should().Be(

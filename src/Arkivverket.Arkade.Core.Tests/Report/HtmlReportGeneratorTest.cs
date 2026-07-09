@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Arkivverket.Arkade.Core.Base;
@@ -12,11 +12,27 @@ using Location = Arkivverket.Arkade.Core.Testing.Location;
 
 namespace Arkivverket.Arkade.Core.Tests.Report
 {
-    public class HtmlReportGeneratorTest
+    public class HtmlReportGeneratorTest : LanguageDependentTest
     {
         private const int TestResultDisplayLimit = 100;
 
-        private static TestSession CreateTestSessionWithTwoTestRuns()
+        private static Archive CreateNoark3Archive()
+        {
+            return new ArchiveBuilder()
+                .WithArchiveType(ArchiveType.Noark3)
+                .WithWorkingDirectoryExternalContent(Path.Combine("TestData", "noark3"))
+                .Build();
+        }
+
+        private static Archive CreateNoark5Archive()
+        {
+            return new ArchiveBuilder()
+                .WithArchiveType(ArchiveType.Noark5)
+                .WithWorkingDirectoryRoot(Path.Combine("TestData", "Report", "FilesToBeListed"))
+                .Build();
+        }
+
+        private static List<TestRun> CreateTwoTestRuns()
         {
             TestRun testRun1 = new TestRunBuilder()
                 .WithTestId(new TestId(TestId.TestKind.Unidentified, 1))
@@ -37,37 +53,40 @@ namespace Arkivverket.Arkade.Core.Tests.Report
                 .WithDurationMillis(100L)
                 .Build();
 
-            var testRuns = new List<TestRun> {testRun1, testRun2};
-
-            TestSession testSession = new TestSessionBuilder()
-                .WithTestRuns(testRuns)
-                .WithTestSummary(new TestSummary(0, 0, 0, 0, 0))
-                .Build();
-            return testSession;
+            return new List<TestRun> {testRun1, testRun2};
         }
 
-        private static string GenerateReport(TestSession testSession)
+        private static string GenerateReport(Archive archive)
         {
             var ms = new MemoryStream();
-            TestReport testReport = TestReportFactory.Create(testSession);
+            TestReport testReport = TestReportFactory.Create(archive, diasPackage: null);
             new HtmlReportGenerator(TestResultDisplayLimit).Generate(testReport, ms);
             return Encoding.UTF8.GetString(ms.ToArray());
         }
 
-        [Fact(Skip = "Archive is expected to have a content directory")]
+        [Fact]
         public void ShouldGenerateReport()
         {
-            TestSession testSession = CreateTestSessionWithTwoTestRuns();
+            Archive archive = CreateNoark3Archive();
 
-            string html = GenerateReport(testSession);
+            new TestSessionBuilder()
+                .WithArchive(archive)
+                .WithTestRuns(CreateTwoTestRuns())
+                .WithTestSummary(new TestSummary(0, 0, 0, 0, 0))
+                .Build();
+
+            string html = GenerateReport(archive);
 
             html.Should().Contain("<html");
-            html.Should().Contain("Test 1");
-            html.Should().Contain("Test 2");
+            // Test names render via ArkadeTestNameProvider (TestId-based display name), not the mock's name
+            html.Should().Contain("U.01");
+            html.Should().Contain("U.02");
+            html.Should().Contain("Test description 1");
+            html.Should().Contain("Test description 2");
             html.Should().Contain("</html>");
         }
 
-        [Fact(Skip = "Archive is expected to have a content directory")]
+        [Fact]
         public void ShouldGenerateReportWithSummaryForAddmlFlatFile()
         {
             TestRun testRun1 = new TestRunBuilder()
@@ -81,22 +100,24 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 
             var testRuns = new List<TestRun> {testRun1};
 
-            TestSession testSession = new TestSessionBuilder()
-                .WithArchive(new Archive(ArchiveType.Noark3, null, null, null))
+            Archive archive = CreateNoark3Archive();
+
+            new TestSessionBuilder()
+                .WithArchive(archive)
                 .WithTestSummary(new TestSummary(41, 42, 0, 0, 0))
                 .WithTestRuns(testRuns)
                 .Build();
 
-            testSession.TestSummary = new TestSummary(42, 43, 44, 0, 0);
+            archive.TestSession.TestSummary = new TestSummary(42, 43, 44, 0, 0);
 
-            string html = GenerateReport(testSession);
+            string html = GenerateReport(archive);
 
             // xunit was not very happy to report errors on a very huge string
             html.Contains("Antall filer").Should().BeTrue();
             html.Contains("Antall poster").Should().BeTrue();
         }
 
-        [Fact(Skip = "Archive is expected to have a content directory")]
+        [Fact]
         public void ShouldGenerateReportWithSummaryForNoark5()
         {
             TestRun testRun1 = new TestRunBuilder()
@@ -110,20 +131,24 @@ namespace Arkivverket.Arkade.Core.Tests.Report
 
             var testRuns = new List<TestRun> {testRun1};
 
-            TestSession testSession = new TestSessionBuilder()
-                .WithArchive(new Archive(ArchiveType.Noark5, null, null, null))
+            Archive archive = CreateNoark5Archive();
+
+            new TestSessionBuilder()
+                .WithArchive(archive)
                 .WithTestSummary(new TestSummary(0, 0, 44, 0, 0))
                 .WithTestRuns(testRuns)
                 .Build();
 
-            string html = GenerateReport(testSession);
+            string html = GenerateReport(archive);
 
             // xunit was not very happy to report errors on a very huge string
-            html.Contains("Antall filer").Should().BeTrue();
+            // Noark5 reports show tests-executed instead of processed files/records
+            html.Contains("Antall tester utført").Should().BeTrue();
+            html.Contains("Antall filer").Should().BeFalse();
             html.Contains("Antall poster").Should().BeFalse();
         }
 
-        [Fact(Skip = "Archive is expected to have a content directory")]
+        [Fact(Skip = "Test body commented out long before ARKADE-782 (version text troubled the build server)")]
         public void ShouldShowArkadeVersionNumberInReport()
         {
             /*

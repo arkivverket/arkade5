@@ -27,7 +27,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
     {
         private readonly ILogger _log = Log.ForContext<ToolsDialogViewModel>();
 
-        private ArkadeApi _arkadeApi;
+        private ArkadeCoreApi _arkadeCoreApi;
         private readonly IStatusEventHandler _statusEventHandler;
 
         // ---------- File format analysis --------------
@@ -144,9 +144,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
             set => SetProperty(ref _closeButtonIsEnabled, value);
         }
 
-        public ToolsDialogViewModel(ArkadeApi arkadeApi, IStatusEventHandler statusEventHandler)
+        public ToolsDialogViewModel(ArkadeCoreApi arkadeCoreApi, IStatusEventHandler statusEventHandler)
         {
-            _arkadeApi = arkadeApi;
+            _arkadeCoreApi = arkadeCoreApi;
             _statusEventHandler = statusEventHandler;
 
             // ---------- File format analysis --------------
@@ -304,9 +304,9 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                         SupportedLanguage language = LanguageSettingHelper.GetOutputLanguage();
 
                         IEnumerable<IFileFormatInfo> analysedFiles =
-                            _arkadeApi.AnalyseFileFormats(DirectoryForFormatCheck, FileFormatScanMode.Directory);
+                            _arkadeCoreApi.AnalyseFileFormats(DirectoryForFormatCheck, FileFormatScanMode.Directory);
 
-                        _arkadeApi.GenerateFileFormatInfoFiles(analysedFiles, DirectoryForFormatCheck, filePath, language);
+                        _arkadeCoreApi.GenerateFileFormatInfoFiles(analysedFiles, DirectoryForFormatCheck, filePath, language);
                     });
             }
             catch (Exception e)
@@ -409,7 +409,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                     ArchiveFormat format = ArchiveFormatValidationFormat.GetValueByDescription<ArchiveFormat>();
                     SupportedLanguage language = LanguageSettingHelper.GetUILanguage();
 
-                    report = _arkadeApi.ValidateArchiveFormatAsync(
+                    report = _arkadeCoreApi.ValidateArchiveFormatAsync(
                         _archiveFormatValidationItem, format, resultFileDirectoryPath, language).Result;
                 });
 
@@ -439,7 +439,7 @@ namespace Arkivverket.Arkade.GUI.ViewModels
                 return;
             }
 
-            _arkadeApi.GenerateMetadataExampleFile(saveFileDialog.FileName);
+            _arkadeCoreApi.GenerateMetadataExampleFile(saveFileDialog.FileName);
 
             string argument = "/select, \"" + saveFileDialog.FileName + "\"";
             Process.Start("explorer.exe", argument);

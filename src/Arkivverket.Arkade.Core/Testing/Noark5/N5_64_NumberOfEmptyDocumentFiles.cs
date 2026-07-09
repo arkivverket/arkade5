@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -21,7 +22,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private DocumentDescription _currentDocumentDescription;
         private DocumentObject _currentDocumentObject;
 
-        public N5_64_NumberOfEmptyDocumentFiles(Archive archive)
+        public N5_64_NumberOfEmptyDocumentFiles(Noark5Archive archive)
         {
             _documentFiles = archive?.DocumentFiles;
         }

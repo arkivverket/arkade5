@@ -35,8 +35,8 @@ namespace Arkivverket.Arkade.Core.Tests.Base.Addml.Definitions
         private static AddmlDefinitionParser SetupParser(string archiveDirectory)
         {
             var workingDirectory =
-                new WorkingDirectory(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + archiveDirectory));
-            AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.Root().WithFile("addml.xml").FullName,
+                new DirectoryArchiveContent(new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory + archiveDirectory));
+            AddmlInfo addml = AddmlUtil.ReadFromFile(workingDirectory.GetFile("addml.xml").FullName,
                 ResourceUtil.GetResourceAsStream(ArkadeConstants.Addml82XsdResource));
 
             return new AddmlDefinitionParser(addml, workingDirectory, new StatusEventHandler());

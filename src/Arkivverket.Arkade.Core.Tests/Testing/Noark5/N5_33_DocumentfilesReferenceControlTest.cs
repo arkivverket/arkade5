@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Tests.Base;
 using FluentAssertions;
@@ -102,9 +103,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         {
             const string testdataDirectory = "TestData\\Noark5\\DocumentfilesControl\\FilesToBeReferenced";
 
-            Archive testArchive = new ArchiveBuilder()
+            var testArchive = new ArchiveBuilder()
                 .WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot(testdataDirectory).Build();
+                .WithWorkingDirectoryRoot(testdataDirectory).Build<Noark5Archive>();
 
             testArchive.DocumentFiles.Register(false);
 

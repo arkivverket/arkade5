@@ -6,15 +6,16 @@
              xmlns:prism="http://prismlibrary.com/"
              xmlns:coreBase="clr-namespace:Arkivverket.Arkade.Core.Base;assembly=Arkivverket.Arkade.Core"
              xmlns:lang="clr-namespace:Arkivverket.Arkade.GUI.Languages"
+             xmlns:archive="clr-namespace:Arkivverket.Arkade.Core.Base.Archives;assembly=Arkivverket.Arkade.Core"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="1000"
              d:DataContext="{d:DesignData LoadArchiveExtractionViewModel}">
     <Grid Height="350" Margin="15">
         <Grid.Resources>
-            <ObjectDataProvider x:Key="GetArchiveTypes" MethodName="GetValues" ObjectType="coreBase:ArchiveType">
+            <ObjectDataProvider x:Key="GetArchiveTypes" MethodName="GetValues" ObjectType="archive:ArchiveType">
                 <ObjectDataProvider.MethodParameters>
-                    <x:Type TypeName="coreBase:ArchiveType"></x:Type>
+                    <x:Type TypeName="archive:ArchiveType"></x:Type>
                 </ObjectDataProvider.MethodParameters>
             </ObjectDataProvider>
         </Grid.Resources>
@@ -67,7 +68,7 @@
         <Button Grid.Row="3" Grid.Column="3" Margin="5 30 0 0" Width="140" Height="31"
                 HorizontalAlignment="Left" VerticalAlignment="Top"
                 Content="{x:StaticExtension lang:LoadArchiveExtractionGUI.LoadArchiveButtonText}"
-                Command="{Binding NavigateToTestRunnerCommand}" />
+                Command="{Binding LoadSelectedArchiveInputCommand}" />
 
     </Grid>
 </UserControl>

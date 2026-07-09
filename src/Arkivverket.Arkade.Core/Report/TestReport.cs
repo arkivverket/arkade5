@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing;
 
 namespace Arkivverket.Arkade.Core.Report
@@ -12,13 +14,25 @@ namespace Arkivverket.Arkade.Core.Report
 
     public class TestReportSummary
     {
-        public string Uuid { get; set; }
+        // Omitted from the report entirely when there is no relevant DIAS package (directory / .siard
+        // input). JSON omits it via the attribute below; XmlSerializer omits a null string element;
+        // the HTML/PDF generator skips the row. All four formats stay content-identical.
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+        public string InformationPackageUuid { get; set; }
+
+        // A DIAS package whose METS lacks a valid identity (UUID) still IS a package: the report's
+        // package row is then rendered with an explicit unknown-identity marker, never dropped —
+        // dropping it would disguise the package as a loose archive-extraction input. Omitted from
+        // serialized reports when false, keeping identified-package and no-package reports unchanged.
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public bool PackageIdentityIsUnknown { get; set; }
+        public bool ShouldSerializePackageIdentityIsUnknown() => PackageIdentityIsUnknown;
         public ArchiveType ArchiveType { get; set; }
         public string ArchiveCreators { get; set; }
         public string ArchivalPeriod { get; set; }
         public string SystemName { get; set; }
         public string SystemType { get; set; }
-        public string DateOfTesting { get; set; }
+        public string TimeOfTesting { get; set; }
         public string NumberOfProcessedFiles { get; set; }
         public string NumberOfProcessedRecords { get; set; }
         public string NumberOfTestsRun { get; set; }

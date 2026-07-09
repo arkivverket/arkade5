@@ -1,46 +1,45 @@
+using System;
+using System.Collections.Generic;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
+using static Arkivverket.Arkade.Core.Base.PackageType;
 using static Arkivverket.Arkade.Core.Util.ArkadeConstants;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
-    public class MetadataFilesCreator
+    public class MetadataFilesCreator(
+        DiasMetsCreator diasMetsCreator,
+        DiasPremisCreator diasPremisCreator,
+        EadCreator eadCreator,
+        EacCpfCreator eacCpfCreator,
+        LogCreator logCreator)
     {
-        private readonly DiasMetsCreator _diasMetsCreator;
-        private readonly DiasPremisCreator _diasPremisCreator;
-        private readonly LogCreator _logCreator;
-        private readonly EacCpfCreator _eacCpfCreator;
-        private readonly EadCreator _eadCreator;
 
-        public MetadataFilesCreator(DiasMetsCreator diasMetsCreator, DiasPremisCreator diasPremisCreator,
-            EadCreator eadCreator, EacCpfCreator eacCpfCreator, LogCreator logCreator)
+        public void Create(Archive archive)
         {
-            _diasMetsCreator = diasMetsCreator;
-            _diasPremisCreator = diasPremisCreator;
-            _logCreator = logCreator;
-            _eadCreator = eadCreator;
-            _eacCpfCreator = eacCpfCreator;
-        }
+            OutputDiasPackage outputDiasPackage = archive.OutputDiasPackage;
 
-        public void Create(Archive archive, ArchiveMetadata metadata)
-        {
-            _diasPremisCreator.CreateAndSaveFile(archive, metadata);
-            _logCreator.CreateAndSaveFile(archive, metadata);
-            // EAD is not included in v1.0
-            _eadCreator.CreateAndSaveFile(archive, metadata);
-            // EAC-CPF is not included in v1.0
-            _eacCpfCreator.CreateAndSaveFile(archive, metadata);
+            List<IMetadataCreator> metadataCreators = outputDiasPackage.PackageType switch
+            {
+                SubmissionInformationPackage => [diasPremisCreator, logCreator],
+                ArchivalInformationPackage => [diasPremisCreator, logCreator, eadCreator, eacCpfCreator],
+                _ => throw new ArgumentOutOfRangeException(nameof(outputDiasPackage), outputDiasPackage.PackageType, null)
+            };
 
-            AddXsdFiles(archive.WorkingDirectory);
+            foreach (IMetadataCreator metadataCreator in metadataCreators)
+                metadataCreator.CreateAndSaveFile(outputDiasPackage);
+            
+            AddXsdFiles(outputDiasPackage.WorkingDirectory);
 
             // Generate mets-file last for it to describe all other package content
-            _diasMetsCreator.CreateAndSaveFile(archive, metadata);
+            diasMetsCreator.CreateAndSaveFile(archive);
         }
 
-        private static void AddXsdFiles(WorkingDirectory workingDirectory)
+        private static void AddXsdFiles(DiasPackageWorkingDirectory diasPackageWorkingDirectory)
         {
-            workingDirectory.Root().AddFileFromResources(DiasMetsXsdResource, DiasMetsXsdFileName);
+            diasPackageWorkingDirectory.Root().AddFileFromResources(DiasMetsXsdResource, DiasMetsXsdFileName);
 
-            workingDirectory.AdministrativeMetadata()
+            diasPackageWorkingDirectory.AdministrativeMetadata()
                 .AddFileFromResources(DiasPremisXsdResource, DiasPremisXsdFileName);
 
         }

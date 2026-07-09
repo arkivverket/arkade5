@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Testing.Noark5.Structure;
 using Arkivverket.Arkade.Core.Util;
@@ -28,7 +29,7 @@ namespace Arkivverket.Arkade.Core.Base.Noark5
         {
             Type arkadeTestImplementation = _arkadeTestImplementationsByTestId[testId];
 
-            bool isConstructedWithArchive = arkadeTestImplementation.GetConstructor(new[] {typeof(Archive)}) != null;
+            bool isConstructedWithArchive = arkadeTestImplementation.GetConstructor([typeof(Noark5Archive)]) != null;
 
             var arkadeTestInstance = (IArkadeTest) (isConstructedWithArchive
                 ? Activator.CreateInstance(arkadeTestImplementation, _archive)

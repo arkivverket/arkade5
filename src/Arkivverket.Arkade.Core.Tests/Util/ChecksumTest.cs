@@ -3,7 +3,6 @@ using System.IO;
 using Arkivverket.Arkade.Core.Util;
 using FluentAssertions;
 using Xunit;
-using Xunit.Abstractions;
 
 namespace Arkivverket.Arkade.Core.Tests.Util
 {

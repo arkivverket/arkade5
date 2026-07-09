@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Testing;
 using Arkivverket.Arkade.Core.Testing.Noark5;
 using Arkivverket.Arkade.Core.Tests.Base;
@@ -46,7 +47,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             // Creating a test archive stating that it should contain disposal resolutions:
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
+                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build<Noark5Archive>();
 
             TestRun testRun = helper.RunEventsOnTest(new N5_44_NumberOfDisposalResolutions(testArchive));
 
@@ -125,7 +126,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             // Creating a test archive stating that it should contain disposal resolutions:
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
+                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build<Noark5Archive>();
 
             TestRun testRun = helper.RunEventsOnTest(new N5_44_NumberOfDisposalResolutions(testArchive));
 
@@ -178,7 +179,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             // Creating a test archive stating that it should not contain any disposal resolutions:
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansFalse").Build();
+                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansFalse").Build<Noark5Archive>();
 
             TestRun testRun = helper.RunEventsOnTest(new N5_44_NumberOfDisposalResolutions(testArchive));
 
@@ -218,7 +219,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             // Creating a test archive stating that it should contain disposal resolutions:
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build();
+                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansTrue").Build<Noark5Archive>();
 
             TestRun testRun = helper.RunEventsOnTest(new N5_44_NumberOfDisposalResolutions(testArchive));
 
@@ -256,7 +257,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             // Creating a test archive stating that it should not contain any disposal resolutions:
             var testArchive = new ArchiveBuilder().WithArchiveType(ArchiveType.Noark5)
-                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansFalse").Build();
+                .WithWorkingDirectoryRoot("TestData\\Noark5\\MetaDataTesting\\BooleansFalse").Build<Noark5Archive>();
 
             TestRun testRun = helper.RunEventsOnTest(new N5_44_NumberOfDisposalResolutions(testArchive));
 

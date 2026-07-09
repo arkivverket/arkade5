@@ -1,0 +1,1130 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE TILLEGGSINFO.TAB SYSTEM "TILLEGG.DTD">
+<TILLEGGSINFO.TAB VERSJON="1.0">
+   <TILLEGGSINFO>
+      <TI.ID>3261</TI.ID>
+      <TI.SAID>200102</TI.SAID>
+      <TI.REGAV>K2ANS</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>F(100,000%):Vaktmester. Sted:Rådhuset.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3262</TI.ID>
+      <TI.SAID>200104</TI.SAID>
+      <TI.REGAV>K2ANS</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Rådmann. Sted:Rådmannskontoret.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3263</TI.ID>
+      <TI.SAID>200108</TI.SAID>
+      <TI.REGAV>K2ANS</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Kontordame. Sted:Kantina i rådhuset.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3264</TI.ID>
+      <TI.SAID>200111</TI.SAID>
+      <TI.REGAV>K2ANS</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>E(100,000%):K2000 ansvarlig</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3265</TI.ID>
+      <TI.SAID>200110</TI.SAID>
+      <TI.REGAV>K2ANS</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>F(33,330%):Hovedarkivar. Sted:Sentralarkivet.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3266</TI.ID>
+      <TI.SAID>200097</TI.SAID>
+      <TI.ITYPE>K2BYGG</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Gnr/bnr: 123/15, Tiltaksveien 15: §93. Arbeid som krever byggetillatelse, Boligbygning</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3267</TI.ID>
+      <TI.SAID>200103</TI.SAID>
+      <TI.ITYPE>K2BYGG</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Gnr/bnr: 100/22/1/2, Toppenveien 7B: Tilbygg, Garasje, uthus, anneks knyttet til bolig</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3268</TI.ID>
+      <TI.SAID>200106</TI.SAID>
+      <TI.REGAV>K2ANS</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3269</TI.ID>
+      <TI.SAID>200107</TI.SAID>
+      <TI.REGAV>K2ANS</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1025</TI.ID>
+      <TI.JPID>2000155</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1011</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000155/02, versjon 2 og sak 02/00067</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1026</TI.ID>
+      <TI.JPID>2000155</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1012</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000155/02, versjon 1 og sak 02/00067</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>472</TI.ID>
+      <TI.JPID>2000104</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020418</TI.REGDATO>
+      <TI.REGKL>1116</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000104/02, versjon 1 og sak 02/00058</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1047</TI.ID>
+      <TI.JPID>2000124</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1020</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000124/02, versjon 1 og sak 02/00067</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1048</TI.ID>
+      <TI.JPID>2000124</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1034</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000124/02, versjon 1 og sak 02/00067</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>446</TI.ID>
+      <TI.JPID>2000180</TI.JPID>
+      <TI.ITYPE>FF</TI.ITYPE>
+      <TI.REGDATO>20020416</TI.REGDATO>
+      <TI.REGKL>1542</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Flyttet reg. med løpenummer 000175/02 (002) fra sak 02/00070 til sak 02/00090</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>447</TI.ID>
+      <TI.JPID>2000180</TI.JPID>
+      <TI.ITYPE>FF</TI.ITYPE>
+      <TI.REGDATO>20020416</TI.REGDATO>
+      <TI.REGKL>1543</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Flyttet reg. med løpenummer 000175/02 (002) fra sak 02/00090 til sak 02/00070</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>445</TI.ID>
+      <TI.JPID>2000181</TI.JPID>
+      <TI.ITYPE>FF</TI.ITYPE>
+      <TI.REGDATO>20020416</TI.REGDATO>
+      <TI.REGKL>1541</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Flyttet reg. med løpenummer 000176/02 (002) fra sak 02/00070 til sak 02/00091</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>548</TI.ID>
+      <TI.JPID>2000220</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020418</TI.REGDATO>
+      <TI.REGKL>1533</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000220/02, versjon 1 og sak 02/00101</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3270</TI.ID>
+      <TI.SAID>200102</TI.SAID>
+      <TI.JPID>2000235</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1957-04-01 00:00:00.000000 Innstilt som nr: 99. M. 0 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3271</TI.ID>
+      <TI.SAID>200102</TI.SAID>
+      <TI.JPID>2000236</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1968-01-10 00:00:00.000000 Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3272</TI.ID>
+      <TI.SAID>200102</TI.SAID>
+      <TI.JPID>2000237</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST> Innstilt som nr: 99. M. 0 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3273</TI.ID>
+      <TI.SAID>200104</TI.SAID>
+      <TI.JPID>2000239</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1957-04-01 00:00:00.000000 Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3274</TI.ID>
+      <TI.SAID>200104</TI.SAID>
+      <TI.JPID>2000240</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1968-01-10 00:00:00.000000 Innstilt som nr: 99. M. 0 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3275</TI.ID>
+      <TI.SAID>200108</TI.SAID>
+      <TI.JPID>2000241</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1968-01-10 00:00:00.000000 Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3276</TI.ID>
+      <TI.SAID>200108</TI.SAID>
+      <TI.JPID>2000242</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1932-08-17 00:00:00.000000 Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1756</TI.ID>
+      <TI.JPID>2000243</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1513</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00109- (000243/02) er endret fra XX til </TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1757</TI.ID>
+      <TI.JPID>2000243</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1513</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000243/02 og sak 02/00109 er endret av BRP</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1758</TI.ID>
+      <TI.JPID>2000244</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1514</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00109- (000244/02) er endret fra XX til </TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1759</TI.ID>
+      <TI.JPID>2000244</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1514</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000244/02 og sak 02/00109 er endret av BRP</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3277</TI.ID>
+      <TI.SAID>200108</TI.SAID>
+      <TI.JPID>2000245</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST> Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3278</TI.ID>
+      <TI.SAID>200108</TI.SAID>
+      <TI.JPID>2000246</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST> Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3279</TI.ID>
+      <TI.SAID>200108</TI.SAID>
+      <TI.JPID>2000247</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1968-01-10 00:00:00.000000 Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3280</TI.ID>
+      <TI.SAID>200108</TI.SAID>
+      <TI.JPID>2000248</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST> Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3281</TI.ID>
+      <TI.SAID>200102</TI.SAID>
+      <TI.JPID>2000249</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1968-01-10 00:00:00.000000 Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3282</TI.ID>
+      <TI.SAID>200110</TI.SAID>
+      <TI.JPID>2000250</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1968-01-10 00:00:00.000000 Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3283</TI.ID>
+      <TI.SAID>200110</TI.SAID>
+      <TI.JPID>2000251</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1932-08-17 00:00:00.000000 Innstilt som nr: 99. I. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3284</TI.ID>
+      <TI.SAID>200110</TI.SAID>
+      <TI.JPID>2000252</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST> Innstilt som nr: 99. I. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3285</TI.ID>
+      <TI.SAID>200111</TI.SAID>
+      <TI.JPID>2000253</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST> Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>3286</TI.ID>
+      <TI.SAID>200111</TI.SAID>
+      <TI.JPID>2000254</TI.JPID>
+      <TI.ITYPE>K2SOKANS</TI.ITYPE>
+      <TI.REGAV>0</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Født: 1932-08-17 00:00:00.000000 Innstilt som nr: 99. M. 1 (0: Søker ønsker ikke at navnet skal offentliggjøres).)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1897</TI.ID>
+      <TI.JPID>2000265</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020911</TI.REGDATO>
+      <TI.REGKL>1044</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00115- (000265/02) er endret fra   til 5a</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1898</TI.ID>
+      <TI.JPID>2000265</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020911</TI.REGDATO>
+      <TI.REGKL>1044</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000265/02 og sak 02/00115 er endret av T1</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1760</TI.ID>
+      <TI.JPID>2000266</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1514</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00119- (000266/02) er endret fra XX til </TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1761</TI.ID>
+      <TI.JPID>2000266</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1514</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000266/02 og sak 02/00119 er endret av BRP</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1138</TI.ID>
+      <TI.JPID>2000277</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1141</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000277/02, versjon 1 og sak 02/00123</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1108</TI.ID>
+      <TI.JPID>2000278</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1106</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000268/02 er avskrevet av registrering med løpenummer 000276/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1070</TI.ID>
+      <TI.JPID>2000279</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1055</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000279/02, versjon 1 og sak 02/00127</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>951</TI.ID>
+      <TI.JPID>2000283</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020524</TI.REGDATO>
+      <TI.REGKL>1332</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000283/02, versjon 3 og sak 02/00127</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1137</TI.ID>
+      <TI.JPID>2000284</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1140</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000284/02, versjon 1 og sak 02/00123</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1109</TI.ID>
+      <TI.JPID>2000286</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1107</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000286/02, versjon 1 og sak 02/00124</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1127</TI.ID>
+      <TI.JPID>2000288</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1114</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000288/02, versjon 1 og sak 02/00123</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1136</TI.ID>
+      <TI.JPID>2000288</TI.JPID>
+      <TI.ITYPE>FK</TI.ITYPE>
+      <TI.REGDATO>20020530</TI.REGDATO>
+      <TI.REGKL>1138</TI.REGKL>
+      <TI.REGAV>111</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Laget arkivformat for reg. med løpenummer 000288/02, versjon 1 og sak 02/00123</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1687</TI.ID>
+      <TI.JPID>2000291</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1122</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000291/02 og sak 02/00130 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1688</TI.ID>
+      <TI.JPID>2000291</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1123</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000291/02 og sak 02/00130 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1689</TI.ID>
+      <TI.JPID>2000292</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1125</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00131- (000292/02) er endret fra XX til </TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1690</TI.ID>
+      <TI.JPID>2000292</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1125</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00131 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1691</TI.ID>
+      <TI.JPID>2000292</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1132</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00131 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1693</TI.ID>
+      <TI.JPID>2000292</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1133</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00131 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1694</TI.ID>
+      <TI.JPID>2000292</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1133</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00131 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1695</TI.ID>
+      <TI.JPID>2000292</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1134</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Internt notat 000280/02 fra &apos;' til '' er avskrevet av registrering med løpenummer 000281/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1696</TI.ID>
+      <TI.JPID>2000292</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1134</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000280/02 er avskrevet av registrering med løpenummer 000281/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1697</TI.ID>
+      <TI.JPID>2000293</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1134</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000293/02 og sak 02/00131 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1698</TI.ID>
+      <TI.JPID>2000293</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1134</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000293/02 og sak 02/00131 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1702</TI.ID>
+      <TI.JPID>2000293</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1220</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000293/02 og sak 02/00131 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1703</TI.ID>
+      <TI.JPID>2000293</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1221</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00131- (000293/02) er endret fra  til F</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1704</TI.ID>
+      <TI.JPID>2000293</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1221</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000293/02 og sak 02/00131 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1705</TI.ID>
+      <TI.JPID>2000293</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1221</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000293/02 og sak 02/00131 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1706</TI.ID>
+      <TI.JPID>2000293</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1228</TI.REGKL>
+      <TI.REGAV>117</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000293/02 og sak 02/00131 er endret av MNC</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1741</TI.ID>
+      <TI.JPID>2000297</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1340</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000297/02 og sak 02/00133 er endret av BRP</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1762</TI.ID>
+      <TI.JPID>2000297</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1514</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00133- (000297/02) er endret fra XX til </TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1763</TI.ID>
+      <TI.JPID>2000297</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1514</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000297/02 og sak 02/00133 er endret av BRP</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1764</TI.ID>
+      <TI.JPID>2000299</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1515</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00133- (000299/02) er endret fra XX til </TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1765</TI.ID>
+      <TI.JPID>2000299</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1515</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000299/02 og sak 02/00133 er endret av BRP</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1766</TI.ID>
+      <TI.JPID>2000300</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1517</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00110- (000300/02) er endret fra XX til </TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>1767</TI.ID>
+      <TI.JPID>2000300</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020902</TI.REGDATO>
+      <TI.REGKL>1517</TI.REGKL>
+      <TI.REGAV>119</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000300/02 og sak 02/00110 er endret av BRP</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2893</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1240</TI.REGKL>
+      <TI.REGAV>124</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000289/02 og sak 02/00138 er endret av IBM/LF/T5 (Test Test5)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2894</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>EJ</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1241</TI.REGKL>
+      <TI.REGAV>124</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Status for journalpost for 02/00138- (000289/02) er endret fra R til F</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2895</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1241</TI.REGKL>
+      <TI.REGAV>124</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000289/02 og sak 02/00138 er endret av IBM/LF/T5 (Test Test5)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2896</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1241</TI.REGKL>
+      <TI.REGAV>124</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00138- (000289/02) er endret fra XX til </TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2897</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1241</TI.REGKL>
+      <TI.REGAV>124</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000289/02 og sak 02/00138 er endret av IBM/LF/T5 (Test Test5)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2900</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1243</TI.REGKL>
+      <TI.REGAV>120</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000289/02 og sak 02/00138 er endret av EA/ALL/T5 (Test Test1)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2909</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1305</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>&apos;Test Test3' har besvart journalpost 000289/02 med svardokument 000292/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2910</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1305</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Svardokument 000292/02 besvarer journalpost 000289/02 fra &apos;Test Test5'.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2911</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1305</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000289/02 er avskrevet av registrering med løpenummer #/#.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2917</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1314</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>&apos;Test Test3' har besvart journalpost 000289/02 med svardokument 000292/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2918</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1314</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Svardokument 000292/02 besvarer journalpost 000289/02 fra &apos;Test Test5'.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2919</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1314</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000289/02 er avskrevet av registrering med løpenummer #/#.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2922</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1332</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>&apos;Test Test3' har besvart journalpost 000289/02 med svardokument 000292/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2923</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1334</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Svardokument 000292/02 besvarer journalpost 000289/02 fra &apos;Test Test5'.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2924</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1334</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000289/02 er avskrevet av registrering med løpenummer #/#.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2928</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1351</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>&apos;Test Test3' har besvart journalpost 000289/02 med svardokument 000292/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2929</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1351</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Svardokument 000292/02 besvarer journalpost 000289/02 fra &apos;Test Test5'.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2930</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1351</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000289/02 er avskrevet av registrering med løpenummer #/#.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2932</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1352</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>&apos;Test Test3' har besvart journalpost 000289/02 med svardokument 000292/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2933</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1352</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Svardokument 000292/02 besvarer journalpost 000289/02 fra &apos;Test Test5'.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2934</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1352</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000289/02 er avskrevet av registrering med løpenummer #/#.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2936</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1355</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>&apos;Test Test3' har besvart journalpost 000289/02 med svardokument 000292/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2937</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1355</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Svardokument 000292/02 besvarer journalpost 000289/02 fra &apos;Test Test5'.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2938</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1355</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000289/02 er avskrevet av registrering med løpenummer #/#.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2940</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1403</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>&apos;Test Test3' har besvart journalpost 000289/02 med svardokument 000292/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2941</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1403</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Svardokument 000292/02 besvarer journalpost 000289/02 fra &apos;Test Test5'.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2942</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1403</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000289/02 er avskrevet av registrering med løpenummer #/#.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2946</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1409</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>&apos;Test Test3' har besvart journalpost 000289/02 med svardokument 000292/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2947</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1409</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Svardokument 000292/02 besvarer journalpost 000289/02 fra &apos;Test Test5'.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2948</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1409</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000289/02 er avskrevet av registrering med løpenummer #/#.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2953</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1420</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>&apos;Test Test3' har besvart journalpost 000289/02 med svardokument 000294/02.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2954</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1420</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Svardokument 000294/02 besvarer journalpost 000289/02 fra &apos;Test Test5'.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2955</TI.ID>
+      <TI.JPID>2000301</TI.JPID>
+      <TI.ITYPE>K2AVSKR</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1420</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost 000289/02 er avskrevet av registrering med løpenummer #/#.</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2912</TI.ID>
+      <TI.JPID>2000304</TI.JPID>
+      <TI.ITYPE>ET</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1306</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Tilgangskode for journalpost for 02/00138- (000292/02) er endret fra XX til </TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2913</TI.ID>
+      <TI.JPID>2000304</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1306</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00138 er endret av EA/IBM/T3 (Test Test3)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2916</TI.ID>
+      <TI.JPID>2000304</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1314</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00138 er endret av EA/IBM/T3 (Test Test3)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2920</TI.ID>
+      <TI.JPID>2000304</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1315</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00138 er endret av EA/IBM/T3 (Test Test3)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2921</TI.ID>
+      <TI.JPID>2000304</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1329</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00138 er endret av EA/IBM/T3 (Test Test3)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2927</TI.ID>
+      <TI.JPID>2000304</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1351</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00138 er endret av EA/IBM/T3 (Test Test3)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2931</TI.ID>
+      <TI.JPID>2000304</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1352</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00138 er endret av EA/IBM/T3 (Test Test3)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2935</TI.ID>
+      <TI.JPID>2000304</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1354</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00138 er endret av EA/IBM/T3 (Test Test3)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2939</TI.ID>
+      <TI.JPID>2000304</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1355</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00138 er endret av EA/IBM/T3 (Test Test3)</TI.TEKST>
+   </TILLEGGSINFO>
+   <TILLEGGSINFO>
+      <TI.ID>2945</TI.ID>
+      <TI.JPID>2000304</TI.JPID>
+      <TI.ITYPE>FO</TI.ITYPE>
+      <TI.REGDATO>20020930</TI.REGDATO>
+      <TI.REGKL>1409</TI.REGKL>
+      <TI.REGAV>122</TI.REGAV>
+      <TI.PVGAV>0</TI.PVGAV>
+      <TI.TEKST>Journalpost med løpenummer 000292/02 og sak 02/00138 er endret av EA/IBM/T3 (Test Test3)</TI.TEKST>
+   </TILLEGGSINFO>
+</TILLEGGSINFO.TAB>

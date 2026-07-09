@@ -1,4 +1,6 @@
+using System;
 using Arkivverket.Arkade.Core.Base.Addml;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Base.Siard;
 using Serilog;
@@ -20,15 +22,16 @@ namespace Arkivverket.Arkade.Core.Base
             _siardTestEngine = siardTestEngine;
         }
 
-        public ITestEngine GetTestEngine(TestSession testSession)
+        public ITestEngine GetTestEngine(Archive archive)
         {
-            _log.Debug("Find test engine for archive {archiveType}", testSession.Archive.ArchiveType);
+            _log.Debug("Find test engine for {archiveTypeName}", archive.GetType().Name);
 
-            return testSession.Archive.ArchiveType switch
+            return archive switch
             {
-                ArchiveType.Siard => _siardTestEngine,
-                ArchiveType.Noark5 => _noark5TestEngine,
-                _ => _addmlDatasetTestEngine
+                SiardArchive => _siardTestEngine,
+                Noark5Archive => _noark5TestEngine,
+                AddmlDefinitionTestedArchive => _addmlDatasetTestEngine,
+                _ => throw new ArgumentOutOfRangeException(nameof(archive))
             };
         }
     }

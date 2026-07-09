@@ -1,37 +1,38 @@
 using System.IO;
 using Arkivverket.Arkade.Core.Util;
+using Serilog;
 
-namespace Arkivverket.Arkade.Core.Base
+namespace Arkivverket.Arkade.Core.Base;
+
+public class ArkadeBuiltInXmlSchema : ArchiveXmlSchema
 {
-    public class ArkadeBuiltInXmlSchema : ArchiveXmlSchema
+    public readonly Version SchemaVersion;
+    private readonly string _xmlSchemaName;
+
+    public ArkadeBuiltInXmlSchema(string xmlSchemaName, Version version = null)
     {
-        private readonly string _xmlSchemaName;
-        private readonly string _archiveTypeVersion;
+        // TODO: Use non-Noark5 specific warning message
+        Log.Warning(string.Format(Resources.Noark5Messages.InternalSchemaFileIsUsed, xmlSchemaName, version?.Name));
 
-        public ArkadeBuiltInXmlSchema(string xmlSchemaName, string archiveTypeVersion)
-        {
-            _xmlSchemaName = xmlSchemaName;
-            _archiveTypeVersion = archiveTypeVersion;
-        }
+        _xmlSchemaName = xmlSchemaName;
+        SchemaVersion = version;
+    }
 
-        protected override string GetFileName()
-        {
-            return _xmlSchemaName;
-        }
+    protected override string GetName()
+    {
+        return _xmlSchemaName;
+    }
 
-        internal string GetArchiveTypeVersion()
-        {
-            return _archiveTypeVersion;
-        }
-        
-        public override Stream AsStream()
-        {
-            string pathCompatibleVersionString = "v" + _archiveTypeVersion.Replace('.', '_');
+    public override Stream AsStream()
+    {
+        return ResourceUtil.GetResourceAsStream(SchemaVersion?.XsdResourceLocalPath != null
+            ? $"{ArkadeConstants.DirectoryPathBuiltInXsdResources}.{SchemaVersion.XsdResourceLocalPath}.{_xmlSchemaName}"
+            : $"{ArkadeConstants.DirectoryPathBuiltInXsdResources}.{_xmlSchemaName}");
+    }
 
-            string xsdResourceName =
-                $"{string.Format(ArkadeConstants.DirectoryPathNoark5XsdResources, pathCompatibleVersionString)}.{_xmlSchemaName}";
-
-            return ResourceUtil.GetResourceAsStream(xsdResourceName);
-        }
+    public class Version(string name, string xsdResourceLocalPath = null)
+    {
+        public readonly string Name = name;
+        internal readonly string XsdResourceLocalPath = xsdResourceLocalPath;
     }
 }

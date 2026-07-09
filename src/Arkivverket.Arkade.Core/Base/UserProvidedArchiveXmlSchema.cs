@@ -1,27 +1,18 @@
 using System.IO;
 
-namespace Arkivverket.Arkade.Core.Base
+namespace Arkivverket.Arkade.Core.Base;
+
+public class UserProvidedXmlSchema(FileSystemInfo schemaFile) : ArchiveXmlSchema
 {
-    public class UserProvidedXmlSchema : ArchiveXmlSchema
+    private readonly ArchiveXmlFile _archiveXmlFile = new(schemaFile);
+
+    protected override string GetName()
     {
-        private readonly ArchiveXmlFile _archiveXmlFile;
+        return _archiveXmlFile.Name;
+    }
 
-        public string FullName => _archiveXmlFile.FullName;
-        public bool FileExists => _archiveXmlFile.Exists;
-
-        public UserProvidedXmlSchema(FileSystemInfo schemaFile)
-        {
-            _archiveXmlFile = new ArchiveXmlFile(schemaFile);
-        }
-
-        protected override string GetFileName()
-        {
-            return _archiveXmlFile.Name;
-        }
-
-        public override Stream AsStream()
-        {
-            return _archiveXmlFile.AsStream();
-        }
+    public override Stream AsStream()
+    {
+        return _archiveXmlFile.AsStream();
     }
 }

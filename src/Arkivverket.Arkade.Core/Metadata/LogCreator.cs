@@ -8,17 +8,17 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
-    public class LogCreator
+    public class LogCreator : IMetadataCreator
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public premisComplexType Create(Archive archive, ArchiveMetadata metadata)
+        public premisComplexType Create(Uuid outputPackageUuid)
         {
             return new premisComplexType()
             {
                 @object = new objectComplexType[]
                 {
-                    CreateEntryForTarFile(archive.Uuid)
+                    CreateEntryForTarFile(outputPackageUuid)
                 }
             };
         }
@@ -52,15 +52,15 @@ namespace Arkivverket.Arkade.Core.Metadata
             };
         }
 
-        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
+        public void CreateAndSaveFile(OutputDiasPackage outputDiasPackage)
         {
-            premisComplexType premis = Create(archive, metadata);
+            premisComplexType premis = Create(outputDiasPackage.Id);
 
             var namespaces = new XmlSerializerNamespaces();
             namespaces.Add("premis", "http://arkivverket.no/standarder/PREMIS");
             namespaces.Add("xlink", "http://www.w3.org/1999/xlink");
             namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            FileInfo targetFileName = archive.WorkingDirectory.Root().WithFile(ArkadeConstants.LogXmlFileName);
+            FileInfo targetFileName = outputDiasPackage.WorkingDirectory.Root().WithFile(ArkadeConstants.LogXmlFileName);
             SerializeUtil.SerializeToFile(premis, targetFileName, namespaces);
 
             Log.Debug($"Created {ArkadeConstants.LogXmlFileName}");

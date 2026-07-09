@@ -14,7 +14,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SharpSeparation";
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
+            var testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
@@ -34,7 +34,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SoftSeparationAndUnEqualJournals";
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
+            var testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
             TestRun testRun = xmlElementHelper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
@@ -69,7 +69,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SharpSeparation";
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
+            var testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
             TestRun testRun = helper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 
@@ -104,7 +104,7 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
             const string testdataDirectory = "TestData\\Noark5\\JournalControl\\SoftSeparation";
 
-            Archive testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
+            var testArchive = TestUtil.CreateArchiveExtraction(testdataDirectory);
 
             TestRun testRun = helper.RunEventsOnTest(new N5_59_NumberOfJournalPosts(testArchive));
 

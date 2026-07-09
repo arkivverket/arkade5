@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base.Addml.Definitions;
 using Arkivverket.Arkade.Core.Base.Addml.Processes.Hardcoded;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Logging;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Testing;
@@ -26,11 +27,13 @@ namespace Arkivverket.Arkade.Core.Base.Addml
             _testProgressReporter = testProgressReporter;
         }
 
-        public TestSuite RunTestsOnArchive(TestSession testSession)
+        public TestSuite RunTestsOnArchive(Archive archive)
         {
-            _testProgressReporter.Begin(testSession.Archive.ArchiveType);
+            var addmlDefinitionTestedArchive = (AddmlDefinitionTestedArchive)archive;
+            
+            _testProgressReporter.Begin(archive.ArchiveType);
 
-            AddmlDefinition addmlDefinition = testSession.AddmlDefinition;
+            AddmlDefinition addmlDefinition = archive.TestSession.AddmlDefinition;
 
             _addmlProcessRunner.Init(addmlDefinition);
 
@@ -64,7 +67,7 @@ namespace Arkivverket.Arkade.Core.Base.Addml
                 _addmlProcessRunner.RunProcesses(file);
 
                 IRecordEnumerator recordEnumerator =
-                    _flatFileReaderFactory.GetRecordEnumerator(testSession.Archive, file);
+                    _flatFileReaderFactory.GetRecordEnumerator(archive, file);
 
                 int numberOfRecordsWithFieldDelimiterError = 0;
 
@@ -146,10 +149,10 @@ namespace Arkivverket.Arkade.Core.Base.Addml
 
             TestSuite testSuite = _addmlProcessRunner.GetTestSuite();
 
-            testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, testSession.Archive).GetTestRun());
+            testSuite.AddTestRun(new AH_02_ControlExtraOrMissingFiles(addmlDefinition, addmlDefinitionTestedArchive).GetTestRun());
             testSuite.AddTestRun(new AH_03_ControlRecordAndFieldDelimiters(_testResultsFailedRecordsList).GetTestRun());
 
-            testSession.TestSummary = new TestSummary((int) fileCounter, numberOfProcessedRecords,
+            archive.TestSession.TestSummary = new TestSummary((int) fileCounter, numberOfProcessedRecords,
                 testSuite.TestRuns.Count(), testSuite.FindNumberOfErrors(), 0);
 
             _testProgressReporter.Finish();

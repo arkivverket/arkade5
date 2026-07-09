@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE UTENDTD.TAB SYSTEM "UTENDTD.DTD">
+<UTENDTD.TAB VERSJON="1.0">
+   <PERNAVN>
+      <PN.ID>119</PN.ID>
+      <PN.PEID>119</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>BRP</PN.INIT>
+      <PN.NAVN>Kari Nordmann</PN.NAVN>
+      <PN.FORNAVN>Barbro Røshol</PN.FORNAVN>
+      <PN.ENAVN>Åsheim</PN.ENAVN>
+      <PN.FRADATO>20020123</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>188</PN.ID>
+      <PN.PEID>188</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>AR</PN.INIT>
+      <PN.NAVN>Ola Nordmann</PN.NAVN>
+      <PN.FORNAVN>Rød</PN.FORNAVN>
+      <PN.ENAVN>Arne</PN.ENAVN>
+      <PN.FRADATO>20020418</PN.FRADATO>
+      <PN.TILDATO>20020902</PN.TILDATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>191</PN.ID>
+      <PN.PEID>191</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>TEST</PN.INIT>
+      <PN.NAVN>Test Testesen</PN.NAVN>
+      <PN.FORNAVN>Test</PN.FORNAVN>
+      <PN.ENAVN>Testesen</PN.ENAVN>
+      <PN.FRADATO>20020911</PN.FRADATO>
+      <PN.TILDATO>19000101</PN.TILDATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>102</PN.ID>
+      <PN.PEID>102</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>ADMIN</PN.INIT>
+      <PN.NAVN>Administrator Kontor2000</PN.NAVN>
+      <PN.FORNAVN>Administrator</PN.FORNAVN>
+      <PN.ENAVN>Kontor2000</PN.ENAVN>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>108</PN.ID>
+      <PN.PEID>108</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>ROO</PN.INIT>
+      <PN.NAVN>Per Hansen</PN.NAVN>
+      <PN.FORNAVN>Roy Tore</PN.FORNAVN>
+      <PN.ENAVN>Østensen</PN.ENAVN>
+      <PN.FRADATO>20020116</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>120</PN.ID>
+      <PN.PEID>120</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>T1</PN.INIT>
+      <PN.NAVN>Test Test1</PN.NAVN>
+      <PN.FORNAVN>Test</PN.FORNAVN>
+      <PN.ENAVN>Test1</PN.ENAVN>
+      <PN.FRADATO>20020128</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>123</PN.ID>
+      <PN.PEID>123</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>T4</PN.INIT>
+      <PN.NAVN>Test Test4</PN.NAVN>
+      <PN.FORNAVN>Test</PN.FORNAVN>
+      <PN.ENAVN>Test4</PN.ENAVN>
+      <PN.FRADATO>20020128</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>121</PN.ID>
+      <PN.PEID>121</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>T2</PN.INIT>
+      <PN.NAVN>Test Test2</PN.NAVN>
+      <PN.FORNAVN>Test</PN.FORNAVN>
+      <PN.ENAVN>Test2</PN.ENAVN>
+      <PN.FRADATO>20020128</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>111</PN.ID>
+      <PN.PEID>111</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>RSH</PN.INIT>
+      <PN.NAVN>Lars Kristiansen</PN.NAVN>
+      <PN.FORNAVN>Ragnar</PN.FORNAVN>
+      <PN.ENAVN>Sturtzel</PN.ENAVN>
+      <PN.FRADATO>20020117</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>122</PN.ID>
+      <PN.PEID>122</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>T3</PN.INIT>
+      <PN.NAVN>Test Test3</PN.NAVN>
+      <PN.FORNAVN>Test</PN.FORNAVN>
+      <PN.ENAVN>Test3</PN.ENAVN>
+      <PN.FRADATO>20020128</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>114</PN.ID>
+      <PN.PEID>114</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>HAØ</PN.INIT>
+      <PN.NAVN>Anne Olsen</PN.NAVN>
+      <PN.FORNAVN>Hanne Andersen</PN.FORNAVN>
+      <PN.ENAVN>Østvang</PN.ENAVN>
+      <PN.FRADATO>20020123</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>116</PN.ID>
+      <PN.PEID>116</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>RT</PN.INIT>
+      <PN.NAVN>Eva Larsen</PN.NAVN>
+      <PN.FORNAVN>Randi</PN.FORNAVN>
+      <PN.ENAVN>Torp</PN.ENAVN>
+      <PN.FRADATO>20020123</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>118</PN.ID>
+      <PN.PEID>118</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>HE</PN.INIT>
+      <PN.NAVN>Nils Johansen</PN.NAVN>
+      <PN.FORNAVN>Harald</PN.FORNAVN>
+      <PN.ENAVN>Eide</PN.ENAVN>
+      <PN.FRADATO>20020123</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>124</PN.ID>
+      <PN.PEID>124</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>T5</PN.INIT>
+      <PN.NAVN>Test Test5</PN.NAVN>
+      <PN.FORNAVN>Test</PN.FORNAVN>
+      <PN.ENAVN>Test5</PN.ENAVN>
+      <PN.FRADATO>20020128</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>115</PN.ID>
+      <PN.PEID>115</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>LS</PN.INIT>
+      <PN.NAVN>Mona Pedersen</PN.NAVN>
+      <PN.FORNAVN>Liv</PN.FORNAVN>
+      <PN.ENAVN>Sjøblom</PN.ENAVN>
+      <PN.FRADATO>20020123</PN.FRADATO>
+      <PN.TILDATO>20020902</PN.TILDATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>117</PN.ID>
+      <PN.PEID>117</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>MNC</PN.INIT>
+      <PN.NAVN>Ingrid Berg</PN.NAVN>
+      <PN.FORNAVN>Marit</PN.FORNAVN>
+      <PN.ENAVN>Nordstrøm</PN.ENAVN>
+      <PN.FRADATO>20020123</PN.FRADATO>
+   </PERNAVN>
+   <PERNAVN>
+      <PN.ID>186</PN.ID>
+      <PN.PEID>186</PN.PEID>
+      <PN.AKTIV>1</PN.AKTIV>
+      <PN.INIT>BL</PN.INIT>
+      <PN.NAVN>Sven Andersson</PN.NAVN>
+      <PN.FORNAVN>Brit</PN.FORNAVN>
+      <PN.ENAVN>Lislerud</PN.ENAVN>
+      <PN.FRADATO>20020416</PN.FRADATO>
+   </PERNAVN>
+</UTENDTD.TAB>

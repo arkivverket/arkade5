@@ -8,6 +8,7 @@ using System.Linq;
 using System.Xml.Serialization;
 using Arkivverket.Arkade.Core.Testing;
 using System.Text;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Serilog;
 
 namespace Arkivverket.Arkade.Core.Logging
@@ -16,13 +17,16 @@ namespace Arkivverket.Arkade.Core.Logging
     {
         private static ILogger _log = Log.ForContext<TestSessionXmlGenerator>();
 
-        public void GenerateXmlAndSaveToFile(TestSession testSession)
+        public void GenerateXmlAndSaveToFile(Archive archive, OutputDiasPackage outputDiasPackage)
         {
-            string pathToLogFile = testSession.Archive.WorkingDirectory.RepositoryOperations()
+            // The test-session log ships inside the output package's repository_operations (AIP only —
+            // SIP omits that directory). It is written here, at package creation, so it can carry the
+            // output package's UUID rather than any input identity.
+            string pathToLogFile = outputDiasPackage.WorkingDirectory.RepositoryOperations()
                 .WithFile(ArkadeConstants.ArkadeXmlLogFileName)
                 .FullName;
 
-            testSessionLog log = GetTestSessionLog(testSession);
+            testSessionLog log = GetTestSessionLog(archive, outputDiasPackage.Id);
             FileStream fs = new FileStream(pathToLogFile, FileMode.Create);
 
             XmlSerializer xmls = new XmlSerializer(typeof(testSessionLog));
@@ -30,22 +34,25 @@ namespace Arkivverket.Arkade.Core.Logging
             fs.Close();
         }
 
-        public static string GenerateXml(TestSession testSession)
+        public static string GenerateXml(Archive archive)
         {
-            return CreateXml(GetTestSessionLog(testSession));
+            return CreateXml(GetTestSessionLog(archive, archive.OutputDiasPackage?.Id));
         }
 
-        private static testSessionLog GetTestSessionLog(TestSession testSession)
+        private static testSessionLog GetTestSessionLog(Archive archive, Uuid packageUuid)
         {
             testSessionLog log = new testSessionLog();
             log.timestamp = DateTime.Now;
             log.arkadeVersion = ArkadeVersion.Current;
 
-            log.archiveType = testSession?.Archive?.ArchiveType.ToString();
-            log.archiveUuid = testSession?.Archive?.Uuid?.GetValue();
+            log.archiveType = archive.ArchiveType.ToString();
+            // archiveUuid is required by testSessionLog.xsd (minOccurs=1), so the element must always be present.
+            // The log carries the output package's UUID; coalesce to "-" defensively (matching the test
+            // report's placeholder), though a package being created always has an Id.
+            log.archiveUuid = packageUuid?.GetValue() ?? "-";
 
-            log.logEntries = GetLogEntries(testSession);
-            log.testResults = GetTestResults(testSession);
+            log.logEntries = GetLogEntries(archive.TestSession);
+            log.testResults = GetTestResults(archive.TestSession);
 
             return log;
         }

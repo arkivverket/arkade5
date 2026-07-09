@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Resources;
@@ -12,12 +13,12 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
     {
         private readonly TestId _id = new TestId(TestId.TestKind.Noark5, 10);
 
-        private readonly Archive _archive;
+        private readonly Noark5Archive _archive;
         private readonly Stack<string> _currentFolderType = new();
         private readonly List<N5_10_ArchivePart> _archiveParts = new();
         private N5_10_ArchivePart _currentArchivePart;
 
-        public N5_10_NumberOfFolders(Archive archive)
+        public N5_10_NumberOfFolders(Noark5Archive archive)
         {
             _archive = archive;
         }

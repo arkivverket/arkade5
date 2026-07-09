@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
@@ -12,9 +12,6 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 {
     public class Noark5TestProviderTests
     {
-        private static Archive Archive =>
-            TestUtil.CreateArchiveExtraction(Path.Combine("TestData", "Noark5", "Noark5Archive"));
-
         private static readonly List<TestId> AllTestIds = Noark5TestProvider.GetAllTestIds();
 
         private static readonly List<TestId> StructureTestIds = new List<TestId>
@@ -29,16 +26,25 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
 
         private readonly Noark5TestProvider _noark5TestProvider = new Noark5TestProvider();
 
+        private static Noark5Archive CreateArchiveWithTestsToRun(List<TestId> testsToRun)
+        {
+            Noark5Archive archive = TestUtil.CreateArchiveExtraction(Path.Combine("TestData", "Noark5", "Noark5Archive"));
+
+            archive.TestSession = new TestSession(archive.ProcessingDirectory.CreateSubdirectory("tmp-testresults"))
+            {
+                TestsToRun = testsToRun
+            };
+
+            return archive;
+        }
+
 
         [Fact]
         public void GetStructureTestsTest()
         {
-            var testSession = new TestSession(Archive)
-            {
-                TestsToRun = AllTestIds
-            };
+            Noark5Archive archive = CreateArchiveWithTestsToRun(AllTestIds);
 
-            List<IArkadeStructureTest> returnedTests = _noark5TestProvider.GetStructureTests(testSession);
+            List<IArkadeStructureTest> returnedTests = _noark5TestProvider.GetStructureTests(archive);
 
             IEnumerable<TestId> testIdsFromReturnedTests = returnedTests.Select(t => t.GetId());
 
@@ -48,12 +54,9 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         [Fact]
         public void GetContentTestsTest()
         {
-            var testSession = new TestSession(Archive)
-            {
-                TestsToRun = AllTestIds
-            };
+            Noark5Archive archive = CreateArchiveWithTestsToRun(AllTestIds);
 
-            List<INoark5Test> returnedTests = _noark5TestProvider.GetContentTests(testSession);
+            List<INoark5Test> returnedTests = _noark5TestProvider.GetContentTests(archive);
 
             IEnumerable<TestId> testIdsFromReturnedTests = returnedTests.Select(t => t.GetId());
 
@@ -63,13 +66,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
         [Fact]
         public void AllTestsAreReturned()
         {
-            var testSession = new TestSession(Archive)
-            {
-                TestsToRun = AllTestIds
-            };
+            Noark5Archive archive = CreateArchiveWithTestsToRun(AllTestIds);
 
-            List<IArkadeStructureTest> returnedStructureTests = _noark5TestProvider.GetStructureTests(testSession);
-            List<INoark5Test> returnedContentTests = _noark5TestProvider.GetContentTests(testSession);
+            List<IArkadeStructureTest> returnedStructureTests = _noark5TestProvider.GetStructureTests(archive);
+            List<INoark5Test> returnedContentTests = _noark5TestProvider.GetContentTests(archive);
 
             List<TestId> testIdsFromReturnedTests = returnedStructureTests.Select(t => t.GetId()).ToList();
             testIdsFromReturnedTests.AddRange(returnedContentTests.Select(t => t.GetId()));
@@ -88,13 +88,10 @@ namespace Arkivverket.Arkade.Core.Tests.Testing.Noark5
                 new TestId(TestId.TestKind.Noark5, 22) // Content test
             };
 
-            var testSession = new TestSession(Archive)
-            {
-                TestsToRun = selectedTestsIds
-            };
+            Noark5Archive archive = CreateArchiveWithTestsToRun(selectedTestsIds);
 
-            List<IArkadeStructureTest> returnedStructureTests = _noark5TestProvider.GetStructureTests(testSession);
-            List<INoark5Test> returnedContentTests = _noark5TestProvider.GetContentTests(testSession);
+            List<IArkadeStructureTest> returnedStructureTests = _noark5TestProvider.GetStructureTests(archive);
+            List<INoark5Test> returnedContentTests = _noark5TestProvider.GetContentTests(archive);
 
             List<TestId> testIdsFromReturnedTests = returnedStructureTests.Select(t => t.GetId()).ToList();
             testIdsFromReturnedTests.AddRange(returnedContentTests.Select(t => t.GetId()));

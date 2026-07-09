@@ -167,7 +167,7 @@ Eksempler:
     <value>Navnet på systemet arkivet ble skapt i. Bruk det etablerte navnet hos dere. Er det ikke et naturlig systemnavn kan korte beskrivelser som «Mappestruktur på filserver» og «Mediekonvertert fotosamling» benyttes.</value>
   </data>
   <data name="GuiSubsection_Recipient" xml:space="preserve">
-    <value>Mottaker av arkivpakke, f.eks. «Arkivverket»</value>
+    <value>Mottaker av arkivpakke, f.eks. «Nasjonalarkivet»</value>
     <comment>Institusjonsnavn</comment>
   </data>
   <data name="GuiSubsection_Owner" xml:space="preserve">
@@ -186,7 +186,7 @@ Eksempler:
     <value>Systemet som produserte arkivuttrekket</value>
   </data>
   <data name="GuiSubsection_Creator_Email" xml:space="preserve">
-    <value>Mottar opplastingslenke ved overføring til Arkivverket</value>
+    <value>Mottar opplastingslenke ved overføring til Nasjonalarkivet</value>
   </data>
   <data name="SelectPackageType" xml:space="preserve">
     <value>Informasjonspakketype etter OAIS-standarden.</value>

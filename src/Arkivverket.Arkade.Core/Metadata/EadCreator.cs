@@ -8,26 +8,26 @@ using Serilog;
 
 namespace Arkivverket.Arkade.Core.Metadata
 {
-    public class EadCreator
+    public class EadCreator : IMetadataCreator
     {
         private static readonly ILogger Log = Serilog.Log.ForContext(MethodBase.GetCurrentMethod().DeclaringType);
 
-        public ead Create(Archive archive, ArchiveMetadata metadata)
+        public ead Create(Uuid outputPackageUuid)
         {
             return new ead()
             {
-                control = new control() {recordid = new recordid() { Text = new[] { archive.Uuid.ToString() } } }
+                control = new control() {recordid = new recordid() { Text = new[] { outputPackageUuid.ToString() } } }
             };
         }
 
-        public void CreateAndSaveFile(Archive archive, ArchiveMetadata metadata)
+        public void CreateAndSaveFile(OutputDiasPackage outputDiasPackage)
         {
-            ead ead = Create(archive, metadata);
+            ead ead = Create(outputDiasPackage.Id);
 
             var namespaces = new XmlSerializerNamespaces();
             namespaces.Add("", "http://ead3.archivists.org/schema/"); // use blank in namespace prefix to create files without prefixed elements
             namespaces.Add("xsi", "http://www.w3.org/2001/XMLSchema-instance");
-            FileInfo targetFileName = archive.WorkingDirectory.DescriptiveMetadata().WithFile(ArkadeConstants.EadXmlFileName);
+            FileInfo targetFileName = outputDiasPackage.WorkingDirectory.DescriptiveMetadata().WithFile(ArkadeConstants.EadXmlFileName);
             SerializeUtil.SerializeToFile(ead, targetFileName, namespaces);
 
             Log.Debug($"Created {ArkadeConstants.EadXmlFileName}");

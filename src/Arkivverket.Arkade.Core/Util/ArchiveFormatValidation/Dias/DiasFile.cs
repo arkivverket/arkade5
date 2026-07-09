@@ -2,7 +2,7 @@
 
 namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
 {
-    public class DiasFile : DiasEntry
+    public record DiasFile : DiasEntry
     {
         public DiasFile(string fileName) : base(fileName)
         {

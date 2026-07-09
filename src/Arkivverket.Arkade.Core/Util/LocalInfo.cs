@@ -18,6 +18,8 @@ namespace Arkivverket.Arkade.Core.Util
             if (!Directory.Exists(appDataDirectory))
                 Directory.CreateDirectory(appDataDirectory);
 
+            MigrateFromLegacyAppDataFolder(appDataDirectory);
+
             LocalInfoFile = new FileInfo(Path.Combine(appDataDirectory, "local-info.xml"));
 
             if (!LocalInfoFile.Exists)
@@ -27,6 +29,37 @@ namespace Arkivverket.Arkade.Core.Util
                         new XElement("lastCheckForUpdate")));
 
                 locaInfoXmlDoc.Save(LocalInfoFile.FullName);
+            }
+        }
+
+        // Pre-rebranding (Arkivverket → Nasjonalarkivet) the per-user data lived in a folder named
+        // after the old organisation. Carry our file over to the new folder and remove the old one if
+        // it is left empty, so upgrades don't leave an orphaned folder behind. Best-effort: any failure
+        // (or a non-empty legacy folder shared with another app) leaves the old folder untouched.
+        private static void MigrateFromLegacyAppDataFolder(string currentAppDataDirectory)
+        {
+            try
+            {
+                string legacyDirectory = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                    ArkadeConstants.LegacyDirectoryNameAppDataArkadeSubFolder
+                );
+
+                if (!Directory.Exists(legacyDirectory))
+                    return;
+
+                string legacyFile = Path.Combine(legacyDirectory, "local-info.xml");
+                string currentFile = Path.Combine(currentAppDataDirectory, "local-info.xml");
+
+                if (File.Exists(legacyFile) && !File.Exists(currentFile))
+                    File.Move(legacyFile, currentFile);
+
+                if (Directory.GetFileSystemEntries(legacyDirectory).Length == 0)
+                    Directory.Delete(legacyDirectory);
+            }
+            catch
+            {
+                // Migration is best-effort; never let it break start-up.
             }
         }
 

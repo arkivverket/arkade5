@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.Resources;
 using Arkivverket.Arkade.Core.Util;
@@ -19,7 +20,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5
         private readonly ReadOnlyDictionary<string, DocumentFile> _documentFiles;
 
 
-        public N5_30_DocumentFilesChecksumControl(Archive archive)
+        public N5_30_DocumentFilesChecksumControl(Noark5Archive archive)
         {
             _documentFiles = archive.DocumentFiles;
 

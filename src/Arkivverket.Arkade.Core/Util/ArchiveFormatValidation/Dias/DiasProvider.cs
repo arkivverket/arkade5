@@ -9,8 +9,8 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
         {
             return format switch
             {
-                ArchiveFormat.DiasSip => ProvideSipStructureFagsystem(),
-                ArchiveFormat.DiasAip => ProvideAipStructureFagsystem(),
+                ArchiveFormat.DiasSip => ProvideSipStructureSpecializedSystem(),
+                ArchiveFormat.DiasAip => ProvideAipStructureSpecializedSystem(),
                 ArchiveFormat.DiasSipN5 => ProvideSipStructureNoark5(),
                 ArchiveFormat.DiasAipN5 => ProvideAipStructureNoark5(),
                 ArchiveFormat.DiasSipSiard => ProvideSipStructureSiard(),
@@ -19,14 +19,14 @@ namespace Arkivverket.Arkade.Core.Util.ArchiveFormatValidation
             };
         }
 
-        private static DiasDirectory ProvideSipStructureFagsystem()
+        private static DiasDirectory ProvideSipStructureSpecializedSystem()
         {
             DiasDirectory diasDirectory = GetSipStructureBase();
 
             return diasDirectory;
         }
 
-        private static DiasDirectory ProvideAipStructureFagsystem()
+        private static DiasDirectory ProvideAipStructureSpecializedSystem()
         {
             DiasDirectory diasDirectory = GetAipStructureBase();
 

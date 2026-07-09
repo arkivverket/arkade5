@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Arkivverket.Arkade.Core.Base;
+using Arkivverket.Arkade.Core.Base.Archives;
 using Arkivverket.Arkade.Core.Base.Noark5;
 using Arkivverket.Arkade.Core.ExternalModels.Addml;
 using Arkivverket.Arkade.Core.Resources;
@@ -33,13 +34,13 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             };
         }
 
-        public override void Test(Archive archive)
+        public override void Test(Noark5Archive archive)
         {
             var actualFileCount = 0;
 
-            if (!archive.IsNoark5TarArchive && !archive.GetDocumentsDirectory().Exists)
+            if (!archive.SourceIsTarFile && !archive.GetDocumentsDirectory().Exists)
             {
-                string documentDirectoryParent = archive.WorkingDirectory.Content().DirectoryInfo().Name + "\\";
+                string documentDirectoryParent = archive.Content.RootDirectory.Name + "\\";
 
                 _testResults.Add(new TestResult(ResultType.Error, new Location(documentDirectoryParent),
                     Noark5Messages.ValidateNumberOfDocumentfilesMessage_FilesDirectoryNotFound));
@@ -83,7 +84,7 @@ namespace Arkivverket.Arkade.Core.Testing.Noark5.Structure
             }
         }
 
-        private static int GetDocumentedFileCount(Archive archive)
+        private static int GetDocumentedFileCount(Noark5Archive archive)
         {
             addml archiveExtractionXml = archive.AddmlInfo.Addml;
 
